@@ -1,0 +1,56 @@
+.table-responsive {
+  overflow-x: auto;
+  margin: 0;
+  width: 100%;
+
+}
+
+.table-responsive thead tr {
+  border-bottom: 1px solid rgb(50, 50, 190);
+
+}
+
+.table-responsive tr {
+    border-bottom: 1px solid rgba(50, 50, 190, .4);
+}
+
+.table-responsive thead tr:hover {
+    background-color: inherit;
+    color: inherit;
+
+}
+
+
+.table-responsive tr.active,
+.table-responsive tr:hover{
+    background-color: rgb(50, 50, 190);
+    color: white;
+}
+
+.table-responsive td {
+    padding: 1rem 0;
+    white-space: normal;
+}
+
+.table-responsive th {
+  width: 100%;
+  text-transform: uppercase;
+  vertical-align: center;
+  padding: 1rem 0;
+  white-space: normal;
+}
+
+.table-responsive tbody {
+  text-transform: uppercase;
+  text-align: center;
+}
+.table-responsive tbody tr:last-child {
+    border: none;
+}
+
+.table-responsive table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  min-width: 800px;
+}

@@ -1,0 +1,22 @@
+.info {
+    margin: 2rem;
+    background: rgba(50, 50, 190, .9);
+    text-align: center;
+    z-index: 2;
+    padding: 1rem;
+    color: white;
+    overflow: auto
+}
+
+.info h1 {
+    font-size: 1rem;
+    letter-spacing: .3rem;
+}
+
+.info p {
+    font-size: .7rem;
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+}
+
+

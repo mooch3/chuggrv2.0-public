@@ -1,0 +1,13 @@
+.friends {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+
+
+.header {
+    margin: 2rem 0 4rem 0;
+}

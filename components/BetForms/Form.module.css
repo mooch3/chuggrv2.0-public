@@ -1,0 +1,84 @@
+.form {
+  margin: 2rem 1rem;
+}
+
+.form-control {
+  margin: 1rem 0;
+}
+
+.form-control input,
+.form-control label {
+  display: block;
+}
+
+.form-control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.radio-control {
+  font-weight: bold;
+  margin: 3rem 0;
+}
+
+.radio-control label {
+  margin: 0 2rem;
+}
+
+.form-control input,
+.form-control select {
+  font-weight: 300;
+  font-size: 1rem;
+  background-color: white;
+  padding: 0.5rem;
+  border: 1px solid black;
+  border-radius: 7px;
+  width: 20rem;
+  max-width: 100%;
+  font-family: "Montserrat", "sans-serif";
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+  outline: none;
+  background-color: rgba(184, 185, 252, 0.4);
+}
+
+.control-group {
+  display: flex;
+  column-gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.control-group .form-control {
+  min-width: 15rem;
+  flex: 1;
+}
+
+.form-actions {
+  text-align: left;
+}
+
+.invalid input {
+  background-color: rgba(255, 197, 183, 0.4);
+}
+
+.invalid-notif {
+  color: rgb(194, 53, 53);
+}
+
+.header {
+  font-family: "Give You Glory";
+  text-align: left;
+}
+
+.form input[type="radio"] {
+  transform: scale(2);
+}
+.form label {
+  font-size: 1rem;
+}
+
+.form p {
+  margin: 0.5rem 0 0 0;
+}

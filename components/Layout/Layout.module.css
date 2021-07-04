@@ -1,0 +1,6 @@
+.main {
+    max-width: 1024px;
+    min-height: 100vh;
+    display: flex;
+    margin: 0 auto;
+}

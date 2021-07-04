@@ -1,0 +1,9 @@
+.logo {
+  justify-self: flex-end;
+  height: 80%;
+}
+
+.logo img {
+  width: 50px;
+  height: auto;
+}

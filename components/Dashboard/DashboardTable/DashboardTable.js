@@ -6,7 +6,7 @@ import { findStatus } from "../../../helpers/findStatus";
 const DUMMY_USER = "XjPmsoFbmibsoga1WRsUT5PBgGY2"
 
 const DashboardTable = ({ bets, onSelectBet }) => {
-  const [selectBet, setSelectBet] = useState(false);
+  const [selectBet, setSelectBet] = useState(bets[0].betID);
 
   const handleClick = (bet) => {
     onSelectBet(bet);

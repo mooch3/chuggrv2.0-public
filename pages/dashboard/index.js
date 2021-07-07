@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 
 const DUMMY_DATA = [
@@ -24,8 +25,7 @@ const DUMMY_DATA = [
     isFinished: false,
   },
   {
-    title:
-      "Alex Caruso Points",
+    title: "Alex Caruso Points",
     type: "spread",
     stake: {
       shots: 1,
@@ -33,7 +33,7 @@ const DUMMY_DATA = [
     },
     line: 8.5,
     side1Users: {
-      "jaqBgCF9rxN5aZiklI5DAPniKnx2": "chipmungie",
+      jaqBgCF9rxN5aZiklI5DAPniKnx2: "chipmungie",
       "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
     },
     side2Users: {
@@ -76,8 +76,43 @@ const DUMMY_DATA = [
   },
 ];
 
+const DUMMY_PENDING = [
+  {
+    title: "New Bet",
+    type: "event",
+    stake: {
+      shots: 1,
+      beers: 1,
+    },
+    side1Users: {
+      "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
+    },
+    side2Users: {},
+    invitedUsers: {
+      XjPmsoFbmibsoga1WRsUT5PBgGY2: "daddy",
+    },
+    dueDate: 1614395280,
+    betID: "00RvD7Mqg23253dUFeY1a2nH",
+    acceptedUsers: [
+      "jaqBgCF9rxN5aZiklI5DAPniKnx2",
+    ],
+    allUsers: ["jaqBgCF9rxN5aZiklI5DAPniKnx2", "XjPmsoFbmibsoga1WRsUT5PBgGY2"],
+    isFinished: false,
+  },
+
+];
+
 const FullDashboard = () => {
-  return <Dashboard bets={DUMMY_DATA} />;
+  const [pendingBets, setPendingBets] = useState(null);
+
+  useEffect(() => {
+    setPendingBets(DUMMY_PENDING)
+  }, []);
+
+  return (
+  <>
+  <Dashboard newBets={pendingBets} bets={DUMMY_DATA} main={true} />
+  </>);
 };
 
 export default FullDashboard;

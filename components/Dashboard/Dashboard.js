@@ -2,23 +2,37 @@ import { useState } from "react";
 import DashboardTable from "./DashboardTable/DashboardTable";
 import DashboardDisplay from "./DashboardDisplay/DashboardDisplay";
 import classes from "./Dashboard.module.css";
-import Card from '../UI/Card';
+import Card from "../UI/Card";
+import Link from "next/link";
 
-const Dashboard = ({ bets }) => {
-  const [selectedBet, setSelectedBet] = useState(bets[1]);
+const Dashboard = ({ bets, main, pending, newBets }) => {
+  const [selectedBet, setSelectedBet] = useState(bets[0]);
 
   const handleDisplayBet = (bet) => {
     setSelectedBet(bet);
   };
+
   return (
-    <div className={classes.dashboard}>
-      <Card>
-        <DashboardDisplay bet={selectedBet} main={true} />
-      </Card>
-      <Card>
-        <DashboardTable bets={bets} onSelectBet={handleDisplayBet} />
-      </Card>
-    </div>
+    <>
+      <div className={classes.dashboard}>
+        {newBets && newBets.length !== 0 && (
+          <div className={classes.pending}>
+            <Link href="/pending-bets">
+              <a>
+                You have {newBets.length}{" "}
+                {newBets.length === 1 ? "pending bet." : "pending bets."}
+              </a>
+            </Link>
+          </div>
+        )}
+        <Card>
+          <DashboardDisplay bet={selectedBet} main={main} pending={pending} />
+        </Card>
+        <Card>
+          <DashboardTable bets={bets} onSelectBet={handleDisplayBet} />
+        </Card>
+      </div>
+    </>
   );
 };
 

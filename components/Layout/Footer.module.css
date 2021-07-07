@@ -1,0 +1,21 @@
+.container {
+ width: 100%;
+ background-color: rgb(50, 50, 190);
+ margin: 0 auto;
+ padding: 0;
+}
+
+.footer {
+    width: 100%;
+    color: white;
+    text-align: center;
+    line-height: 1.6;
+    text-transform: uppercase;
+    padding: 3rem;
+}
+
+.footer p {
+    margin-bottom: 2rem;
+    letter-spacing: .8rem;
+    word-spacing: .4rem;
+}

@@ -6,7 +6,7 @@ import classes from "./Form.module.css";
 const isNotEmpty = (value) => value.trim().length > 0;
 const isValidStake = (value) =>
   value.trim().length > 0 && 0 <= value && value < 4 && !isNaN(value);
-const isValidLine = (value) => !isNaN(value);
+const isValidLine = (value) => !isNaN(value) && value.trim().length > 0;
 const dateIsFuture = (value) =>
   new Date(value) >= Date.now() + 60 * 60 * 1000 * 24;
 

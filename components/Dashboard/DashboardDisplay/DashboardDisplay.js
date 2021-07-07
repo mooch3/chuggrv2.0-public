@@ -3,16 +3,19 @@ import { dateFormat } from "../../../helpers/dateFormat";
 import { findStatus } from "../../../helpers/findStatus";
 import { displayTeams } from "../../../helpers/displayTeams";
 import { useRouter } from "next/router";
+import RadioSelect from "../../RadioSelect/RadioSelect";
 
 const DUMMY_USER = "XjPmsoFbmibsoga1WRsUT5PBgGY2";
 
-const DashboardDisplay = ({ bet, main }) => {
+
+const DashboardDisplay = ({ bet, main, pending }) => {
 
   const router = useRouter();
 
   const handleRoute = () => {
     router.push(`/bets/${bet.betID}`)
-  }
+  };
+
   return (
     <div className={classes.grid}>
       <div>
@@ -59,7 +62,8 @@ const DashboardDisplay = ({ bet, main }) => {
       </div>
       <div>
       {main && <p onClick={handleRoute}>Bet Details</p>}
-      {bet.allUsers.includes(DUMMY_USER) && !main && <p>Delete Bet</p>}
+      {bet.side1Users.hasOwnProperty(DUMMY_USER) || bet.side2Users.hasOwnProperty(DUMMY_USER) && !main && <p>Delete Bet</p>}
+      {!main && pending && bet.allUsers.includes(DUMMY_USER) && <RadioSelect bet={bet} pending={pending} />}
         
       </div>
     </div>

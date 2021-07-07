@@ -1,21 +1,15 @@
-import { useRouter } from "next/router";
+import classes from './DropDown.module.css';
 import Link from "next/link";
-import classes from "./MainNavigation.module.css";
-import Logo from "./Logo";
-import MenuToggler from "./MenuToggler/MenuToggler";
-import { useState } from "react";
+import { useRouter } from 'next/router';
 
-const MainNavigation = ({ open, openNav}) => {
-  const router = useRouter();
+const DropDown = ({ close }) => {
 
+    const router = useRouter();
 
-  return (
-    <>
-
-      <header className={classes.header}>
-      <Logo />
-        <ul>
-          <li>
+    return (
+        <div className={classes.dd} onClick={close}>
+            <ul>
+            <li>
             <Link href="/">
               <a className={router.pathname === "/" ? classes.active : ""}>
                 Home
@@ -60,11 +54,9 @@ const MainNavigation = ({ open, openNav}) => {
               </a>
             </Link>
           </li>
-        </ul>
-        <MenuToggler openNav={openNav} open={open} />
-      </header>
-    </>
-  );
-};
+            </ul>
+        </div>
+    )
+}
 
-export default MainNavigation;
+export default DropDown;

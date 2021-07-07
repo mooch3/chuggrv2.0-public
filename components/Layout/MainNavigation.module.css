@@ -3,10 +3,11 @@
   height: 90px;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   color: white;
   padding: 0 10%;
   border-bottom: 1px solid rgba(50, 50, 190, .4);
+  justify-content: space-around;
+  z-index: 3;
 }
 
 .header ul {
@@ -31,4 +32,14 @@
 .header a:active,
 .header a.active {
   color: rgb(226, 152, 68);
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    justify-content: space-between;
+  }
+
+  .header ul {
+    display: none;
+  }
 }

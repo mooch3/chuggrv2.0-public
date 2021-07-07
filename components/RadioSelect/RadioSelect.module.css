@@ -1,30 +1,40 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 1rem;
-    margin: 2rem 2rem;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    height: 350px;
-    width: 360px;
-    text-align: center;
-    flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 1rem;
+  margin: 2rem 2rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  height: 350px;
+  width: 360px;
+  text-align: center;
+  flex: 1 0 auto;
 }
 
 .container form {
-display: flex;
-flex-direction: row;
-justify-content: space-evenly;
-margin: 3rem 0;
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 3rem 0;
 }
 
-.container form input[type='radio'] { 
-    transform: scale(2); 
+.pending-container form input[type="radio"],
+.container form input[type="radio"] {
+  transform: scale(2);
 }
 
 .container form label {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
+.pending-container h4 {
+  margin: 0 0 1rem 0;
+}
+
+.pending-container form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem 0 0 0;
+}

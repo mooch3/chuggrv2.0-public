@@ -4,3 +4,23 @@
     flex-direction: column;
     align-items: center;
 }
+
+.pending {
+    width: 100vw;
+    background-color: rgb(50, 50, 190);
+    color: white;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+.pending:hover {
+    color: rgb(245, 139, 18);
+    text-decoration: underline;
+}
+
+.pending a {
+    align-self: center;
+    letter-spacing: .2rem;
+    line-height: 1.6;
+}

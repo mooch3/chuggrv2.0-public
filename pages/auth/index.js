@@ -1,7 +1,7 @@
 import Card from "../../components/UI/Card";
 import AuthForm from "../../components/AuthForm/AuthForm";
 
-const SignIn = () => {
+const Auth = () => {
   return (
     <Card>
       <AuthForm />
@@ -9,4 +9,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Auth;

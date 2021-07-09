@@ -1,8 +1,6 @@
-import styles from '../styles/Home.module.css'
-import Layout from '../components/Layout/Layout';
-
+import CallToAction from "../components/Home/CallToAction"
 export default function Home() {
   return (
-    <div></div>
+    <CallToAction />
   )
 }

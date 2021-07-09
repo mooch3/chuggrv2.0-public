@@ -100,3 +100,7 @@
   background-color: transparent;
   color: rgb(255, 145, 0);
 }
+
+.auth h1 {
+  text-align: center;
+}

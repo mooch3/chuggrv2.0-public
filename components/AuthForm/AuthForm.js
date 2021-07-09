@@ -133,7 +133,8 @@ const AuthForm = () => {
   };
 
   return (
-    <section>
+    <section className={classes.auth}>
+    <h1 className="centered">{isLogin ? 'LOGIN' : 'CREATE ACCOUNT'}</h1>
       <form className={classes.form} onSubmit={handleSubmit}>
         {isLogin && (
           <>

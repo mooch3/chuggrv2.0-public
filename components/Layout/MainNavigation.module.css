@@ -16,6 +16,15 @@
   padding: 0;
   display: flex;
 }
+.header ul button {
+  background-color: transparent;
+  font-size: 1rem;
+  color: rgb(50, 50, 190);
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 600ms cubic-bezier(0.2, 0, 0, 0.8);
+}
 
 .header li {
   margin: 0 3rem;
@@ -30,7 +39,8 @@
 
 .header a:hover,
 .header a:active,
-.header a.active {
+.header a.active,
+.header ul button:hover {
   color: rgb(226, 152, 68);
 }
 

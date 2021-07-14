@@ -1,118 +1,56 @@
 import { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
+import { firebaseClient } from "../../firebaseClient";
+import nookies from "nookies";
+import { verifyIdToken } from "../../firebaseAdmin";
+import db from "../../utils/db";
 
-const DUMMY_DATA = [
-  {
-    title: "Football",
-    type: "event",
-    stake: {
-      shots: 1,
-      beers: 1,
-    },
-    side1Users: {
-      "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
-    },
-    side2Users: {
-      XjPmsoFbmibsoga1WRsUT5PBgGY2: "daddy",
-    },
-    dueDate: 1614395280,
-    betID: "00RvD7Mqg23253dUFeY1a2nH",
-    acceptedUsers: [
-      "jaqBgCF9rxN5aZiklI5DAPniKnx2",
-      "XjPmsoFbmibsoga1WRsUT5PBgGY2",
-    ],
-    allUsers: ["jaqBgCF9rxN5aZiklI5DAPniKnx2", "XjPmsoFbmibsoga1WRsUT5PBgGY2"],
-    isFinished: false,
-  },
-  {
-    title: "Alex Caruso Points",
-    type: "spread",
-    stake: {
-      shots: 1,
-      beers: 1,
-    },
-    line: 8.5,
-    side1Users: {
-      jaqBgCF9rxN5aZiklI5DAPniKnx2: "chipmungie",
-      "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
-    },
-    side2Users: {
-      XjPmsoFbmibsoga1WRsUT5PBgGY2: "daddy",
-    },
-    dueDate: 1684395280,
-    betID: "00RvD7Mqg8s23gFeY1a2nH",
-    acceptedUsers: [
-      "jaqBgCF9rxN5aZiklI5DAPniKnx2",
-      "XjPmsoFbmibsoga1WRsUT5PBgGY2",
-    ],
-    allUsers: ["jaqBgCF9rxN5aZiklI5DAPniKnx2", "XjPmsoFbmibsoga1WRsUT5PBgGY2"],
-    isFinished: false,
-  },
-  {
-    title: "Browns vs. Chiefs",
-    type: "moneyline",
-    team1: "Browns",
-    team2: "Chiefs",
-    stake: {
-      shots: 1,
-      beers: 1,
-    },
-    side1Users: {
-      jaqBgCF9rxN5aZiklI5DAPniKnx2: "chipmungie",
-      "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
-    },
-    side2Users: {
-      XjPmsoFbmibsoga1WRsUT5PBgGY2: "daddy",
-    },
-    dueDate: 1614495280,
-    betID: "32rvD7Mqg8d325UFeY1a2nH",
-    acceptedUsers: [
-      "jaqBgCF9rxN5aZiklI5DAPniKnx2",
-      "XjPmsoFbmibsoga1WRsUT5PBgGY2",
-    ],
-    allUsers: ["jaqBgCF9rxN5aZiklI5DAPniKnx2", "XjPmsoFbmibsoga1WRsUT5PBgGY2"],
-    outstandingUsers: [],
-    isFinished: true,
-  },
-];
+const FullDashboard = ({ session, bets }) => {
+  firebaseClient();
 
-const DUMMY_PENDING = [
-  {
-    title: "New Bet",
-    type: "event",
-    stake: {
-      shots: 1,
-      beers: 1,
-    },
-    side1Users: {
-      "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
-    },
-    side2Users: {},
-    invitedUsers: {
-      XjPmsoFbmibsoga1WRsUT5PBgGY2: "daddy",
-    },
-    dueDate: 1614395280,
-    betID: "00RvD7Mqg23253dUFeY1a2nH",
-    acceptedUsers: [
-      "jaqBgCF9rxN5aZiklI5DAPniKnx2",
-    ],
-    allUsers: ["jaqBgCF9rxN5aZiklI5DAPniKnx2", "XjPmsoFbmibsoga1WRsUT5PBgGY2"],
-    isFinished: false,
-  },
-
-];
-
-const FullDashboard = () => {
   const [pendingBets, setPendingBets] = useState(null);
 
   useEffect(() => {
-    setPendingBets(DUMMY_PENDING)
+    setPendingBets(null);
   }, []);
-
-  return (
-  <>
-  <Dashboard newBets={pendingBets} bets={DUMMY_DATA} main={true} />
-  </>);
+  if (session) {
+    return (
+      <>
+        <Dashboard newBets={pendingBets} bets={bets} main={true} />
+      </>
+    );
+  }
 };
 
 export default FullDashboard;
+
+
+export const getServerSideProps = async (context) => {
+  let bets = [];
+  try {
+    const cookies = nookies.get(context);
+    const token = await verifyIdToken(cookies.token);
+    const { uid } = token;
+
+    const querySnapshot = await db
+      .collection("testBets")
+      .where("acceptedUsers", "array-contains", uid)
+      .get();
+
+    querySnapshot.forEach((bet) => {
+      bets.push(bet.data());
+    });
+    return {
+      props: {
+        bets,
+        session: {
+          uid: uid,
+        },
+      },
+    };
+  } catch (err) {
+    context.res.writeHead(302, { location: "/auth" });
+    context.res.end();
+    return { props: {} };
+  }
+};

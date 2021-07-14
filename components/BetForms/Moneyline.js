@@ -2,6 +2,7 @@ import { useState } from "react";
 import useForm from "../../hooks/useForm";
 import PrettyButton from "../UI/Buttons/PrettyButton";
 import classes from "./Form.module.css";
+import { useAuth } from "../../auth";
 
 const isNotEmpty = (value) => value.trim().length > 0;
 const isValidStake = (value) =>
@@ -9,12 +10,9 @@ const isValidStake = (value) =>
 const dateIsFuture = (value) =>
   new Date(value) >= Date.now() + 60 * 60 * 1000 * 24;
 
-const authCtx = {
-  userName: "D-Rok",
-  uid: "0smr2kLqYPcWphcyEuTksgsG3qA2",
-};
+const Moneyline = ({ addBet, userName }) => {
+  const { user } = useAuth();
 
-const Moneyline = ({ _id, addBet }) => {
   const [side, setSide] = useState("side1");
 
   const [status, setStatus] = useState("Submit");
@@ -106,14 +104,12 @@ const Moneyline = ({ _id, addBet }) => {
       return;
     }
 
-    const betRef = "Create firebase doc";
-
     let sideSelect;
 
     if (side === "side1") {
       sideSelect = {
         side1Users: {
-          [authCtx.uid]: authCtx.userName,
+          [user.uid]: userName,
         },
         side2Users: {},
       };
@@ -123,7 +119,7 @@ const Moneyline = ({ _id, addBet }) => {
       sideSelect = {
         side1Users: {},
         side2Users: {
-          [authCtx.uid]: authCtx.userName,
+          [user.uid]: userName,
         },
       };
     }
@@ -133,9 +129,8 @@ const Moneyline = ({ _id, addBet }) => {
     }
 
     const betObj = {
-      acceptedUsers: [authCtx.uid],
-      allUsers: [authCtx.uid],
-      betID: betRef,
+      acceptedUsers: [user.uid],
+      allUsers: [user.uid],
       dateOpened: Date.now() / 1000,
       dueDate: Date.parse(dateValue) / 1000,
       invitedUsers: {},
@@ -145,15 +140,16 @@ const Moneyline = ({ _id, addBet }) => {
         shots: +shotValue,
       },
       title: `${teamOneValue} vs. ${teamTwoValue} `,
+      team1: teamOneValue,
+      team2: teamTwoValue,
       type: "moneyline",
     };
 
     // make async request
 
     setStatus("Sending...");
-    console.log({ ...sideSelect, ...betObj });
     // async call is done
-    // addBet({...sideSelect, ...betObj});
+    addBet({...sideSelect, ...betObj});
     setStatus("Posted");
 
     teamOneReset();

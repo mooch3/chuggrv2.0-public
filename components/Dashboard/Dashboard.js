@@ -6,7 +6,7 @@ import Card from "../UI/Card";
 import Link from "next/link";
 
 const Dashboard = ({ bets, main, pending, newBets }) => {
-  const [selectedBet, setSelectedBet] = useState(bets[0]);
+  const [selectedBet, setSelectedBet] = bets.length > 0 ? useState(bets[0]) : useState(null);
 
   const handleDisplayBet = (bet) => {
     setSelectedBet(bet);

@@ -1,0 +1,22 @@
+.container {
+  position: absolute;
+  top: 30%;
+  left: 49%;
+  z-index: 2004;
+  color: white;
+}
+.rotating {
+  animation: rotation 3s infinite linear;
+  height: 75px;
+  width: 40px;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}

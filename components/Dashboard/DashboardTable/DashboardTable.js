@@ -2,12 +2,8 @@ import { useState } from "react";
 import classes from "./DashboardTable.module.css";
 import { dateFormat } from "../../../helpers/dateFormat";
 import { findStatus } from "../../../helpers/findStatus";
-import { useAuth } from "../../../auth";
 
-const DashboardTable = ({ bets, onSelectBet }) => {
-
-  const { user } = useAuth();
-  const { uid } = user;
+const DashboardTable = ({ bets, onSelectBet, uid }) => {
 
   const [selectBet, setSelectBet] = bets.length === 0
     ? useState(null)

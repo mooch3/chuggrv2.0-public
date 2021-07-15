@@ -145,6 +145,7 @@ const Spread = ({ addBet, userName }) => {
       },
       title: titleValue,
       type: "spread",
+      outstandingUsers: [],
     };
 
     setStatus("Sending...");

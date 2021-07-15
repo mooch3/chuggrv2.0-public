@@ -129,6 +129,7 @@ const Event = ({ addBet, userName }) => {
       },
       title: titleValue,
       type: "event",
+      outstandingUsers: [],
     };
 
     // make async request

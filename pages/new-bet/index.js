@@ -8,9 +8,10 @@ const NewBet = ({ userName, session }) => {
   firebaseClient();
 
   if (session) {
+    const { uid } = session;
     return (
       <>
-        <BetForms userName={userName} />
+        <BetForms userName={userName} uid={uid} />
       </>
     );
   }

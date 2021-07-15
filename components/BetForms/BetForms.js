@@ -6,7 +6,6 @@ import Event from "./Event";
 import DropDown from "../UI/DropDown/DropDown";
 import createBet from "../../utils/createBet";
 import { firebaseClient } from "../../firebaseClient";
-import { useAuth } from "../../auth";
 
 const betOptions = [
   {
@@ -23,10 +22,8 @@ const betOptions = [
   },
 ];
 
-const BetForms = ({ userName }) => {
+const BetForms = ({ userName, uid }) => {
   firebaseClient();
-  const { user } = useAuth();
-  const { uid } = user;
 
   const [bets, setBets] = useState(betOptions);
   const [selectForm, setSelectForm] = useState("");

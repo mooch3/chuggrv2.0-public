@@ -8,22 +8,22 @@ import db from "../../utils/db";
 const FullDashboard = ({ session, bets }) => {
   firebaseClient();
 
-  const [pendingBets, setPendingBets] = useState(null);
-
-  useEffect(() => {
-    setPendingBets(null);
-  }, []);
   if (session) {
+    const { uid } = session;
+    const [pendingBets, setPendingBets] = useState(null);
+
+    useEffect(() => {
+      setPendingBets(null);
+    }, []);
     return (
       <>
-        <Dashboard newBets={pendingBets} bets={bets} main={true} />
+        <Dashboard newBets={pendingBets} bets={bets} main={true} uid={uid} />
       </>
     );
   }
 };
 
 export default FullDashboard;
-
 
 export const getServerSideProps = async (context) => {
   let bets = [];

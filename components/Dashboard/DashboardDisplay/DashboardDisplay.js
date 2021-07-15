@@ -4,12 +4,10 @@ import { findStatus } from "../../../helpers/findStatus";
 import { displayTeams } from "../../../helpers/displayTeams";
 import { useRouter } from "next/router";
 import RadioSelect from "../../RadioSelect/RadioSelect";
-import { useAuth } from "../../../auth";
 
-const DashboardDisplay = ({ bet, main, pending }) => {
+const DashboardDisplay = ({ bet, main, pending, uid }) => {
   const router = useRouter();
-  const { user } = useAuth();
-  const { uid } = user;
+
 
   const handleRoute = () => {
     router.push(`/bets/${bet.betID}`);
@@ -66,7 +64,7 @@ const DashboardDisplay = ({ bet, main, pending }) => {
             <p>{findStatus(bet, uid)}</p>
           </div>
           <div>
-            {main && <p onClick={handleRoute}>Bet Details</p>}
+            {main && <p onClick={handleRoute} className={classes.link}>Bet Details</p>}
             {bet.side1Users.hasOwnProperty(uid) ||
               (bet.side2Users.hasOwnProperty(uid) && !main && (
                 <p>Delete Bet</p>

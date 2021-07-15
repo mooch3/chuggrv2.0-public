@@ -5,8 +5,9 @@ import classes from "./Dashboard.module.css";
 import Card from "../UI/Card";
 import Link from "next/link";
 
-const Dashboard = ({ bets, main, pending, newBets }) => {
-  const [selectedBet, setSelectedBet] = bets.length > 0 ? useState(bets[0]) : useState(null);
+const Dashboard = ({ bets, main, pending, newBets, uid }) => {
+  const [selectedBet, setSelectedBet] =
+    bets.length > 0 ? useState(bets[0]) : useState(null);
 
   const handleDisplayBet = (bet) => {
     setSelectedBet(bet);
@@ -26,10 +27,19 @@ const Dashboard = ({ bets, main, pending, newBets }) => {
           </div>
         )}
         <Card>
-          <DashboardDisplay bet={selectedBet} main={main} pending={pending} />
+          <DashboardDisplay
+            bet={selectedBet}
+            main={main}
+            pending={pending}
+            uid={uid}
+          />
         </Card>
         <Card>
-          <DashboardTable bets={bets} onSelectBet={handleDisplayBet} />
+          <DashboardTable
+            bets={bets}
+            onSelectBet={handleDisplayBet}
+            uid={uid}
+          />
         </Card>
       </div>
     </>

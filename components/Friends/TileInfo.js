@@ -11,12 +11,12 @@ const TileInfo = ({ firstName, lastName, userName, friends, bet, user }) => {
         </>
       ) : (
         <>
-          <h1>{bet.type.toUpperCase()}</h1>
-          <p>{bet.title}</p>
+          <h1>{bet?.type.toUpperCase()}</h1>
+          <p>{bet?.title}</p>
           <p>
-          🍺 {bet.stake.beers} 🥃 {bet.stake.shots}
+          🍺 {bet?.stake.beers} 🥃 {bet?.stake.shots}
           </p>
-          <p>{bet.winner === "one" && bet.side1Users.hasOwnProperty(user.uid) ? "Won" : "Lost"}</p>
+          <p>{bet?.winner === "one" && bet?.side1Users.hasOwnProperty(user.uid) ? "Won" : "Lost"}</p>
         </>
       )}
     </div>

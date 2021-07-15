@@ -4,34 +4,35 @@ import AutoComplete from "./FriendSearch/AutoComplete";
 import TileGrid from "./TileGrid";
 import Tile from "./Tile";
 import Card from "../UI/Card";
-import { useAuth } from "../../auth";
 
-const Friends = ({ friendSearch, firebase }) => {
-  const { user } = useAuth();
-
+const Friends = ({ friendSearch, firebase, uid }) => {
   const [friendsList, setFriendsList] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = firebase.firestore().collection('testUsers').doc(user.uid).collection('testFriends').onSnapshot(snapshot => {
-      snapshot.docChanges().forEach(change => {
-        if (change.type === 'added') {
-          setFriendsList(prevValue => [...prevValue, change.doc.data()])
-        }
-      })
-    })
+    const unsubscribe = firebase
+      .firestore()
+      .collection("testUsers")
+      .doc(uid)
+      .collection("testFriends")
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            setFriendsList((prevValue) => [...prevValue, change.doc.data()]);
+          }
+        });
+      });
 
     return () => unsubscribe();
-  }, [firebase])
+  }, [firebase]);
 
   return (
     <div className={classes.friends}>
       <Card>
         <h1 className={classes.header}>Find Friends</h1>
-        <AutoComplete options={friendSearch} friendsList={friendsList}/>
+        <AutoComplete options={friendSearch} friendsList={friendsList} />
       </Card>
       <h1>My Friends</h1>
       <TileGrid>
-
         {friendsList.map((friend) => (
           <Tile
             friends={true}

@@ -48,7 +48,7 @@
   transform: translateY(-14px) rotate(-45deg);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1025px) {
   .show-nav,
   .show-nav-open {
     display: none;

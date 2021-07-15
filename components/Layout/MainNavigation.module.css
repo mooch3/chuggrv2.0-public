@@ -44,7 +44,7 @@
   color: rgb(226, 152, 68);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1025px) {
   .header {
     justify-content: space-between;
   }

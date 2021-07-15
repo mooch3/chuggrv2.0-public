@@ -15,19 +15,22 @@ const Profile = ({ user, pastBets, session }) => {
     return (
       <>
         <Row>
+          <h1 className="centered">Profile Details</h1>
           <Card>
             <ProfileDisplay profile={user} />
           </Card>
+          <h1 className="centered">Past Bets</h1>
 
           <TileGrid>
-            {pastBets.length > 0 && (
-              <>
-                {pastBets.map((bet) => (
-                  <Tile key={bet.betID} bet={bet} user={user} />
-                ))}
-              </>
-            )}
+            <>
+              {pastBets.map((bet) => (
+                <Tile key={bet.betID} bet={bet} user={user} />
+              ))}
+            </>
           </TileGrid>
+          {pastBets.length === 0 && (
+            <h3 className="centered"><em>No bets to display.</em></h3>
+          )}
         </Row>
       </>
     );
@@ -51,7 +54,6 @@ export const getServerSideProps = async (context) => {
       .get();
 
     betSnapshot.forEach((bet) => {
-      console.log(bet.data());
       pastBets.push(bet.data());
     });
 

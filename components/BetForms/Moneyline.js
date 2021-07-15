@@ -143,6 +143,7 @@ const Moneyline = ({ addBet, userName }) => {
       team1: teamOneValue,
       team2: teamTwoValue,
       type: "moneyline",
+      outstandingUsers: [],
     };
 
     // make async request

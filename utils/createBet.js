@@ -12,12 +12,20 @@ const incrementBetTotal = (uid) => {
   }
 };
 
+const createBetChat = (betID) => {
+  firebase
+    .firestore()
+    .collection("testChatRooms")
+    .doc(betID)
+    .set({ betID: betID });
+};
+
 const createBet = (bet, uid) => {
   try {
     const betRef = firebase.firestore().collection("testBets").doc();
     betRef.set({ ...bet, ...{ betID: betRef.id } });
+    createBetChat(betRef.id);
     incrementBetTotal(uid);
-
   } catch (err) {
     console.log(err);
   }

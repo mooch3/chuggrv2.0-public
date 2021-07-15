@@ -58,6 +58,13 @@ const DropDown = ({ close }) => {
               </Link>
             </li>
             <li>
+                <Link href="/find-bets">
+                  <a className={router.pathname === "/find-bets" ? classes.active : ""}>
+                    Find Bets
+                  </a>
+                </Link>
+              </li>
+            <li>
               <Link href="/new-bet">
                 <a
                   className={

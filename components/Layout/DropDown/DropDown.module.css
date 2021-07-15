@@ -51,7 +51,7 @@
     color: rgb(226, 152, 68);
   }
 
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 1025px) {
       .dd {
           display: none;
       }

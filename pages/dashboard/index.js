@@ -4,20 +4,18 @@ import { firebaseClient } from "../../firebaseClient";
 import nookies from "nookies";
 import { verifyIdToken } from "../../firebaseAdmin";
 import db from "../../utils/db";
+import firebase from "firebase";
+import "firebase/firestore";
 
 const FullDashboard = ({ session, bets }) => {
   firebaseClient();
 
   if (session) {
     const { uid } = session;
-    const [pendingBets, setPendingBets] = useState(null);
 
-    useEffect(() => {
-      setPendingBets(null);
-    }, []);
     return (
       <>
-        <Dashboard newBets={pendingBets} bets={bets} main={true} uid={uid} />
+        <Dashboard firebase={firebase} bets={bets} main={true} uid={uid} />
       </>
     );
   }

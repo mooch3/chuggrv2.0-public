@@ -4,14 +4,24 @@ import { findStatus } from "../../../helpers/findStatus";
 import { displayTeams } from "../../../helpers/displayTeams";
 import { useRouter } from "next/router";
 import RadioSelect from "../../RadioSelect/RadioSelect";
+import { rejectBet } from "../../../utils/rejectBet";
 
-const DashboardDisplay = ({ bet, main, pending, uid }) => {
+
+const DashboardDisplay = ({ bet, main, pending, uid, userName }) => {
   const router = useRouter();
 
 
   const handleRoute = () => {
     router.push(`/bets/${bet.betID}`);
   };
+
+  const betID = bet?.betID;
+
+  const handleReject = () => {
+    // do something
+    rejectBet(uid, betID);
+  };
+
 
   return (
     <>
@@ -48,10 +58,25 @@ const DashboardDisplay = ({ bet, main, pending, uid }) => {
             {bet.type === "moneyline" && <h4>{bet.team1}:</h4>}
             <p>{displayTeams(bet.side1Users)}</p>
           </div>
-          <div></div>
           <div>
-            <h4>Due:</h4>
-            <p>{dateFormat(bet.dueDate * 1000)}</p>
+            {pending && (
+              <>
+                <h4>Due:</h4>
+                <p>{dateFormat(bet.dueDate * 1000)}</p>
+              </>
+            )}
+          </div>
+          <div>
+            {main && (
+              <>
+                <h4>Due:</h4>
+                <p>{dateFormat(bet.dueDate * 1000)}</p>
+              </>
+            )}
+
+            {pending && !main && bet.allUsers.includes(uid) && (
+              <RadioSelect bet={bet} pending={pending} betID={betID} uid={uid} userName={userName} />
+            )}
           </div>
           <div>
             {bet.type === "event" && <h4>Against:</h4>}
@@ -64,13 +89,25 @@ const DashboardDisplay = ({ bet, main, pending, uid }) => {
             <p>{findStatus(bet, uid)}</p>
           </div>
           <div>
-            {main && <p onClick={handleRoute} className={classes.link}>Bet Details</p>}
+            {main && (
+              <p onClick={handleRoute} className={classes.link}>
+                Bet Details
+              </p>
+            )}
             {bet.side1Users.hasOwnProperty(uid) ||
               (bet.side2Users.hasOwnProperty(uid) && !main && (
                 <p>Delete Bet</p>
               ))}
-            {!main && pending && bet.allUsers.includes(uid) && (
-              <RadioSelect bet={bet} pending={pending} />
+            {pending && !main && bet.allUsers.includes(uid) && (
+              <div className={classes.reject}>
+                <h4>Reject Bet</h4>
+                <button
+                  onClick={handleReject}
+                  className={classes.button}
+                >
+                  Reject
+                </button>
+              </div>
             )}
           </div>
         </div>

@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import "firebase/firestore";
 
-const incrementBetTotal = (uid) => {
+export const incrementBetTotal = (uid) => {
   try {
     const userRef = firebase.firestore().collection("testUsers").doc(uid);
     userRef.update({ numBets: firebase.firestore.FieldValue.increment(1) });

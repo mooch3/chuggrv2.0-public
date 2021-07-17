@@ -93,6 +93,7 @@ const AutoComplete = ({ options, friendsList }) => {
     }
 
     addFriend(friendObj, user.uid);
+    setUserInput("")
   
   };
 

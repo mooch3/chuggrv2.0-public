@@ -1,7 +1,15 @@
+import { useState } from "react";
 import PrettyButton from "../UI/Buttons/PrettyButton";
 import classes from "./RadioSelect.module.css";
+import { joinBet } from '../../utils/joinBet';
 
-const RadioSelect = ({ bet, pending }) => {
+const RadioSelect = ({ bet, pending, uid, userName, betID }) => {
+  const [side, setSide] = useState("side1");
+
+  const handleSelect = (event) => {
+    setSide(event.target.value)
+  }
+
   let side1;
   let side2;
   if (bet.type === "spread") {
@@ -18,16 +26,20 @@ const RadioSelect = ({ bet, pending }) => {
     side1 = bet.team1;
     side2 = bet.team2;
   }
+
+  const handleJoinBet = () => {
+    joinBet(side, betID, uid, userName)
+  }
   return (
     <div className={pending ? classes['pending-container'] : classes.container}>
      {pending  ? <h4>Join Bet</h4> : <h1>Close Bet</h1>}
       <form>
-        <input type="radio" name="select" id="side1" />
+        <input type="radio" name="select" id="side1" value="side1" defaultChecked onChange={handleSelect} />
         <label htmlFor="side1">{side1}</label>
-        <input type="radio" name="select" id="side2" />
+        <input type="radio" name="select" id="side2" value="side2" onChange={handleSelect} />
         <label htmlFor="side2">{side2}</label>
       </form>
-      <PrettyButton>{pending ? "Join Bet" : "Close Bet"}</PrettyButton>
+      <PrettyButton onClick={handleJoinBet}>{pending ? "Join Bet" : "Close Bet"}</PrettyButton>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const betOptions = [
   },
 ];
 
-const BetForms = ({ userName, uid }) => {
+const BetForms = ({ userName, uid, allFriends }) => {
   firebaseClient();
 
   const [bets, setBets] = useState(betOptions);
@@ -41,7 +41,7 @@ const BetForms = ({ userName, uid }) => {
 
   return (
     <Card>
-      <DropDown items={bets} resetThenSet={onSelectItem} />
+      <DropDown items={bets} resetThenSet={onSelectItem} title="Select a bet type..." />
       {selectForm === "spread" && (
         <Spread addBet={onAddBet} userName={userName} />
       )}
@@ -49,7 +49,7 @@ const BetForms = ({ userName, uid }) => {
         <Moneyline addBet={onAddBet} userName={userName} />
       )}
       {selectForm === "event" && (
-        <Event addBet={onAddBet} userName={userName} />
+        <Event addBet={onAddBet} userName={userName} allFriends={allFriends} />
       )}
     </Card>
   );

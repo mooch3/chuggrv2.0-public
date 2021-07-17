@@ -3,6 +3,7 @@ import useForm from "../../hooks/useForm";
 import PrettyButton from "../UI/Buttons/PrettyButton";
 import classes from "./Form.module.css";
 import { useAuth } from "../../auth";
+import DropDown from "../UI/DropDown/DropDown";
 
 const isNotEmpty = (value) => value.trim().length > 0;
 const isValidStake = (value) =>
@@ -10,13 +11,15 @@ const isValidStake = (value) =>
 const dateIsFuture = (value) =>
   new Date(value) >= Date.now() + 60 * 60 * 1000 * 24;
 
-const Event = ({ addBet, userName }) => {
+const Event = ({ addBet, userName, allFriends }) => {
 
 
   const { user } = useAuth();
   const [side, setSide] = useState("side1");
-
   const [status, setStatus] = useState("Submit");
+  const [selectedFriendOptions, setSelectedFriendOptions] = useState(allFriends);
+  const [invitedFriends, setInvitedFriends] = useState({});
+  const [allUsers, setAllUsers] = useState([])
 
   const {
     isValid: titleValid,
@@ -57,6 +60,30 @@ const Event = ({ addBet, userName }) => {
   const handleRadioChange = (event) => {
     setSide(event.target.value);
   };
+
+  const toggleFriend = (friend) => {
+    let invitedFriendsObj = {};
+    let allUsersArr = [];
+    const temp = [...selectedFriendOptions];
+    temp.find((o, i ) => {
+      if (o.id === friend.id) {
+        temp[i].selected = !temp[i].selected
+      }
+      });
+
+    temp.forEach(friend => {
+      if (friend.selected === true) {
+        invitedFriendsObj[friend.id] = friend.title;
+        allUsersArr.push(friend.id);
+      }
+    })
+    
+    setInvitedFriends(invitedFriendsObj);
+    setAllUsers(allUsersArr);
+    setSelectedFriendOptions(temp);
+    
+    
+  }
 
   let formIsValid = false;
 
@@ -118,10 +145,10 @@ const Event = ({ addBet, userName }) => {
 
     const betObj = {
       acceptedUsers: [user.uid],
-      allUsers: [user.uid],
+      allUsers: [user.uid, ...allUsers],
       dateOpened: Date.now() / 1000,
       dueDate: Date.parse(dateValue) / 1000,
-      invitedUsers: {},
+      invitedUsers: invitedFriends,
       isFinished: false,
       stake: {
         beers: +beerValue,
@@ -250,7 +277,14 @@ const Event = ({ addBet, userName }) => {
               />
               <label htmlFor="side2">Against</label>
             </div>
+            <DropDown
+            title="Invite friends..."
+            items={allFriends}
+            resetThenSet={toggleFriend}
+            friendDD={true}
+          />
           </div>
+
           <div className={classes["form-actions"]}>
             <PrettyButton disabled={!formIsValid}>{status}</PrettyButton>
           </div>

@@ -3,10 +3,16 @@ import classes from "./DropDown.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-const DropDown = ({ items, resetThenSet }) => {
-  const [headerTitle, setHeaderTitle] = useState("Select a bet type...");
+const DropDown = ({ items, resetThenSet, title, friendDD }) => {
+  const [headerTitle, setHeaderTitle] = title ? useState(title) : useState("");
   const [listOpen, setListOpen] = useState(false);
+
+  // TODO: decide if handleClose is needed for !friendDD 
+  const handleClose = () => {
+    setListOpen(false);
+  }
 
   const toggleList = () => {
     setListOpen(prevValue => !prevValue);
@@ -17,8 +23,11 @@ const DropDown = ({ items, resetThenSet }) => {
 
         setListOpen(false);
         setHeaderTitle(title);
-
         resetThenSet(id);
+  }
+
+  const handleToggleItem = (item) => {
+      resetThenSet(item)
   }
 
   return (
@@ -38,9 +47,9 @@ const DropDown = ({ items, resetThenSet }) => {
             className={classes["list-item"]}
             type="button"
             key={item.id}
-            onClick={() => handleSelectItem(item)}
+            onClick={!friendDD ? () => handleSelectItem(item) : () => handleToggleItem(item)}
           >
-            {item.title}
+            {item.title} {item.selected && <FontAwesomeIcon icon={faCheck} />}
           </button>
         ))}
       </div>

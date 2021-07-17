@@ -4,7 +4,7 @@ import { firebaseClient } from "./firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-
+// TODO: clear cookies on logout
 const AuthContext = createContext({
   token: "",
   isLoggedIn: false,
@@ -24,14 +24,6 @@ export const AuthProvider = ({ children }) => {
         return;
       }
         const token = await user.getIdToken();
-
-        // const userDoc = await firebase
-        //   .firestore()
-        //   .collection("testUsers")
-        //   .doc(firebase.auth().currentUser.uid)
-        //   .get();
-        // const { userName } = userDoc.data();
-
         setUser(user);
         nookies.set(undefined, "token", token, {});
     });

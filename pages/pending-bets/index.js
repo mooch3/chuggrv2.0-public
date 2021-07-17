@@ -1,34 +1,58 @@
 import Dashboard from "../../components/Dashboard/Dashboard";
+import nookies from "nookies";
+import { verifyIdToken } from "../../firebaseAdmin";
+import { firebaseClient } from "../../firebaseClient";
+import db from "../../utils/db";
+import firebase from "firebase";
+import "firebase/firestore";
 
-const DUMMY_PENDING_BETS = [
-  {
-    title: "Football",
-    type: "event",
-    stake: {
-      shots: 1,
-      beers: 1,
-    },
-    side1Users: {
-      "0smr2kLqYPcWphcyEuTksgsG3qA2": "bolderkat",
-    },
-    side2Users: {
-    },
-    dueDate: 1614395280,
-    betID: "00RvD7Mqg23253dUFeY1a2nH",
-    acceptedUsers: [
-      "jaqBgCF9rxN5aZiklI5DAPniKnx2",
-      "XjPmsoFbmibsoga1WRsUT5PBgGY2",
-    ],
-    allUsers: ["jaqBgCF9rxN5aZiklI5DAPniKnx2", "XjPmsoFbmibsoga1WRsUT5PBgGY2"],
-    isFinished: false,
-  },
-];
-const PendingBets = () => {
-  return (
-    <>
-      <Dashboard bets={DUMMY_PENDING_BETS} main={false} pending={true} />
-    </>
-  );
+const PendingBets = ({ newBets, session, userName}) => {
+  firebaseClient();
+
+  if (session) {
+    const { uid } = session
+    return (
+      <>
+        <Dashboard bets={newBets} main={false} pending={true} uid={uid} userName={userName} firebase={firebase} />
+      </>
+    );
+  }
 };
 
 export default PendingBets;
+
+export const getServerSideProps = async (context) => {
+  let newBets = [];
+  try {
+    const cookies = nookies.get(context);
+    const token = await verifyIdToken(cookies.token);
+    const { uid } = token;
+
+    const userSnapshot = await db.collection('testUsers').doc(uid).get();
+
+    const querySnapshot = await db
+      .collection("testBets")
+      .where("allUsers", "array-contains", uid)
+      .get();
+
+    querySnapshot.forEach((bet) => {
+   
+      if (bet.data().invitedUsers.hasOwnProperty(uid)) {
+        newBets.push(bet.data());
+      }
+    });
+    return {
+      props: {
+        newBets,
+        userName: userSnapshot.data().userName,
+        session: {
+          uid: uid,
+        },
+      },
+    };
+  } catch (err) {
+    context.res.writeHead(302, { location: "/auth" });
+    context.res.end();
+    return { props: {} };
+  }
+};

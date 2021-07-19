@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import { firebaseClient } from "../../firebaseClient";
 import nookies from "nookies";

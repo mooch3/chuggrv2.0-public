@@ -13,6 +13,11 @@
 
 .link {
   color: rgb(50, 50, 190);
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: transparent;
 }
 
 .link:hover {
@@ -62,4 +67,18 @@
   .grid {
     width: 98%;
   }
+}
+
+.delete button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(226, 152, 68);
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.delete button:hover {
+  text-decoration: underline;
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Row from "../../../components/Layout/Row/Row";
 import DashboardDisplay from "../../../components/Dashboard/DashboardDisplay/DashboardDisplay";
 import Card from "../../../components/UI/Card";
@@ -10,33 +11,24 @@ import nookies from "nookies";
 import firebase from "firebase";
 import "firebase/firestore";
 
-const DUMMY_MESSAGES = [
-  {
-    body: "I think it’s 50-50 enough where this is a solid bet",
-    uid: "0smr2kLqYPcWphcyEuTksgsG3qA2",
-    userName: "bolderkat",
-    id: "asfasfajnk32562gsd",
-  },
-  {
-    body: "Word, I totally agree",
-    uid: "XjPmsoFbmibsoga1WRsUT5PBgGY2",
-    userName: "daddy",
-    id: "nlnofahfosai2352",
-  },
-];
-
 const betSlug = ({ bet, session, userName }) => {
   firebaseClient();
-
+  const [isDeleted, setIsDeleted] = useState(null);
+  
+  const handleDelete = () => {
+    setIsDeleted(true);
+  }
   if (session) {
     const { uid } = session;
+    
 
     return (
       <>
-        <Row>
+      {isDeleted && <h1 className="centered">This bet has been deleted.</h1>}
+       {!isDeleted && <Row>
           <h1 className="centered">Bet Details</h1>
           <Card>
-            <DashboardDisplay bet={bet} />
+            <DashboardDisplay bet={bet} uid={uid} onDeleteBet={handleDelete} />
           </Card>
           <Chat
             user={uid}
@@ -46,7 +38,7 @@ const betSlug = ({ bet, session, userName }) => {
             userName={userName}
           />
           <RadioSelect bet={bet} />
-        </Row>
+        </Row>}
       </>
     );
   }

@@ -5,9 +5,17 @@ import classes from "./Dashboard.module.css";
 import Card from "../UI/Card";
 import Link from "next/link";
 
-const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
+const Dashboard = ({
+  bets,
+  main,
+  pending,
+  uid,
+  firebase,
+  userName,
+  findBets,
+}) => {
   const [selectedBet, setSelectedBet] =
-    bets.length > 0 ? useState(bets[0]) : useState(null);
+    bets?.length > 0 ? useState(bets[0]) : useState(null);
   const [newBets, setNewBets] = useState([]);
 
   const [pendingBets, setPendingBets] = useState([]);
@@ -17,7 +25,50 @@ const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
     pending ? setSelectedPendingBet(bet) : setSelectedBet(bet);
   };
 
-  if (pending) {
+  if (findBets) {
+    useEffect(() => {
+      const unsubscribe = firebase
+        .firestore()
+        .collection("testBets")
+        .where("isFinished", "==", false)
+        .onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            if (!change.doc.data().allUsers.includes(uid)) {
+              if (change.type === "added") {
+                console.log('Change was added')
+                setPendingBets((prevValue) => [
+                  ...prevValue,
+                  change.doc.data(),
+                ]);
+              }
+              if (change.type === "modified") {
+                console.log('Change was modified')
+                const modifiedBets = newBets.filter(
+                  (bet) => bet.betID === change.doc.data().betID
+                );
+                setPendingBets(modifiedBets);
+                setSelectedPendingBet(null);
+              }
+              if (change.type === "removed") {
+                console.log('Change was removed')
+                const modifiedBets = newBets.filter(
+                  (bet) => bet.betID === change.doc.data().betID
+                );
+                console.log(modifiedBets);
+                setPendingBets(modifiedBets);
+                setSelectedPendingBet(null);
+              }
+            }
+          });
+        });
+      return () => {
+        unsubscribe();
+        setPendingBets([]);
+      };
+    }, [firebase]);
+  }
+
+  if (pending && !findBets) {
     useEffect(() => {
       const unsubscribe = firebase
         .firestore()
@@ -27,7 +78,6 @@ const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
           snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
               if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                console.log('added doc', change.doc.data())
                 setPendingBets((prevValue) => [
                   ...prevValue,
                   change.doc.data(),
@@ -35,7 +85,6 @@ const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
               }
             }
             if (change.type === "modified") {
-              console.log('modified doc', change.doc.data())
               const modifiedBets = newBets.filter(
                 (bet) => bet.betID === change.doc.data().betID
               );
@@ -44,7 +93,6 @@ const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
               setSelectedPendingBet(null);
             }
             if (change.type === "removed") {
-              console.log('removed doc', change.doc.data())
               const modifiedBets = newBets.filter(
                 (bet) => bet.betID === change.doc.data().betID
               );
@@ -78,7 +126,7 @@ const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
 
       return () => {
         unsubscribe();
-        setNewBets(null);
+        setNewBets([]);
       };
     }, [firebase]);
   }
@@ -104,6 +152,7 @@ const Dashboard = ({ bets, main, pending, uid, firebase, userName }) => {
             pending={pending}
             uid={uid}
             userName={userName}
+            findBets={findBets}
           />
         </Card>
         <Card>

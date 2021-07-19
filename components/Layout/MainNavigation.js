@@ -8,6 +8,7 @@ import { useAuth } from "../../auth";
 import firebase from "firebase";
 import Overlay from '../UI/Overlay/Overlay';
 import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
+import { destroyCookie } from "nookies";
 
 const MainNavigation = ({ open, openNav }) => {
   const router = useRouter();
@@ -15,8 +16,10 @@ const MainNavigation = ({ open, openNav }) => {
   const [loading, setLoading] = useState(false);
 
   const handleLogout = async () => {
+
     setLoading(true);
     await firebase.auth().signOut();
+    destroyCookie(null, 'token');
     router.push("/");
     setLoading(false);
   }

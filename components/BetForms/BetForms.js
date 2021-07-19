@@ -41,12 +41,20 @@ const BetForms = ({ userName, uid, allFriends }) => {
 
   return (
     <Card>
-      <DropDown items={bets} resetThenSet={onSelectItem} title="Select a bet type..." />
+      <DropDown
+        items={bets}
+        resetThenSet={onSelectItem}
+        title="Select a bet type..."
+      />
       {selectForm === "spread" && (
-        <Spread addBet={onAddBet} userName={userName} />
+        <Spread addBet={onAddBet} userName={userName} allFriends={allFriends} />
       )}
       {selectForm === "moneyline" && (
-        <Moneyline addBet={onAddBet} userName={userName} />
+        <Moneyline
+          addBet={onAddBet}
+          userName={userName}
+          allFriends={allFriends}
+        />
       )}
       {selectForm === "event" && (
         <Event addBet={onAddBet} userName={userName} allFriends={allFriends} />

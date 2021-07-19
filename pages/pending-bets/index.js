@@ -6,14 +6,20 @@ import db from "../../utils/db";
 import firebase from "firebase";
 import "firebase/firestore";
 
-const PendingBets = ({ newBets, session, userName}) => {
+const PendingBets = ({ session, userName }) => {
   firebaseClient();
 
   if (session) {
-    const { uid } = session
+    const { uid } = session;
     return (
       <>
-        <Dashboard bets={newBets} main={false} pending={true} uid={uid} userName={userName} firebase={firebase} />
+        <Dashboard
+          main={false}
+          pending={true}
+          uid={uid}
+          userName={userName}
+          firebase={firebase}
+        />
       </>
     );
   }
@@ -22,28 +28,15 @@ const PendingBets = ({ newBets, session, userName}) => {
 export default PendingBets;
 
 export const getServerSideProps = async (context) => {
-  let newBets = [];
   try {
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.token);
     const { uid } = token;
 
-    const userSnapshot = await db.collection('testUsers').doc(uid).get();
+    const userSnapshot = await db.collection("testUsers").doc(uid).get();
 
-    const querySnapshot = await db
-      .collection("testBets")
-      .where("allUsers", "array-contains", uid)
-      .get();
-
-    querySnapshot.forEach((bet) => {
-   
-      if (bet.data().invitedUsers.hasOwnProperty(uid)) {
-        newBets.push(bet.data());
-      }
-    });
     return {
       props: {
-        newBets,
         userName: userSnapshot.data().userName,
         session: {
           uid: uid,

@@ -6,7 +6,7 @@ import db from "../../utils/db";
 import firebase from "firebase";
 import "firebase/firestore";
 
-const findBetsDashboard = ({ session, userName, bets }) => {
+const findBetsDashboard = ({ session, userName }) => {
   firebaseClient();
 
   if (session) {

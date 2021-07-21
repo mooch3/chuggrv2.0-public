@@ -31,7 +31,7 @@ const Friends = ({ friendSearch, firebase, uid }) => {
         <h1 className={classes.header}>Find Friends</h1>
         <AutoComplete options={friendSearch} friendsList={friendsList} />
       </Card>
-      <h1>My Friends</h1>
+      <h1 className={classes.header}>My Friends</h1>
       <TileGrid>
         {friendsList.map((friend) => (
           <Tile

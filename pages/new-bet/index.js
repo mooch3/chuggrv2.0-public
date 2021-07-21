@@ -37,8 +37,6 @@ export const getServerSideProps = async (context) => {
       allFriends.push(friendObj);
     });
 
-    console.log(allFriends);
-
     return {
       props: {
         userName: userSnapshot.data().userName,

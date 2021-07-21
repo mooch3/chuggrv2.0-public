@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./DropDown.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-const DropDown = ({ items, resetThenSet, title, friendDD }) => {
+const DropDown = ({ items, resetThenSet, title, friendDD, onCloseList }) => {
   const [headerTitle, setHeaderTitle] = title ? useState(title) : useState("");
   const [listOpen, setListOpen] = useState(false);
 
+  useEffect(() => {
+    items.forEach(item => {
+      item.selected = false;
+    });
+
+    return; 
+  }, [items])
+
   // TODO: decide if handleClose is needed for !friendDD 
-  const handleClose = () => {
-    setListOpen(false);
-  }
 
   const toggleList = () => {
     setListOpen(prevValue => !prevValue);

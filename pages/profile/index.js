@@ -15,11 +15,27 @@ const Profile = ({ user, pastBets, session }) => {
     return (
       <>
         <Row>
-          <h1 className="centered">Profile Details</h1>
+          <h1
+            style={{
+              textTransform: "uppercase",
+              letterSpacing: ".6rem",
+              margin: "3rem auto 1rem auto",
+            }}
+          >
+            Profile Details
+          </h1>
           <Card>
             <ProfileDisplay profile={user} />
           </Card>
-          <h1 className="centered">Past Bets</h1>
+          <h1
+            style={{
+              textTransform: "uppercase",
+              letterSpacing: ".6rem",
+              margin: "3rem auto 1rem auto",
+            }}
+          >
+            Past Bets
+          </h1>
 
           <TileGrid>
             <>
@@ -27,10 +43,13 @@ const Profile = ({ user, pastBets, session }) => {
                 <Tile key={bet.betID} bet={bet} user={user} />
               ))}
             </>
-          </TileGrid>
-          {pastBets.length === 0 && (
-            <h3 className="centered"><em>No bets to display.</em></h3>
+            {pastBets.length === 0 && (
+            <h3 className="centered" style={{gridArea: "1/2"}}>
+              <em>No bets to display.</em>
+            </h3>
           )}
+          </TileGrid>
+
         </Row>
       </>
     );

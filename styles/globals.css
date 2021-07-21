@@ -1,11 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@100;300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@100;300;400;500&display=swap");
+@font-face {
+  font-family: "Tondu";
+  src: url("/fonts/Tondu_Beta.ttf");
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #f5f8fb;
+}
+
+body h1 {
+  font-family: "Tondu", sans-serif;
 }
 
 a {

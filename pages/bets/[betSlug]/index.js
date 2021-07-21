@@ -30,14 +30,14 @@ const betSlug = ({ bet, session, userName }) => {
           <Card>
             <DashboardDisplay bet={bet} uid={uid} onDeleteBet={handleDelete} />
           </Card>
-          <Chat
+          {bet.acceptedUsers.includes(uid) && <Chat
             user={uid}
             firebase={firebase}
             betId={bet.betID}
             title={bet.title}
             userName={userName}
-          />
-          <RadioSelect bet={bet} />
+          />}
+          <RadioSelect bet={bet} uid={uid} betID={bet.betID}/>
         </Row>}
       </>
     );

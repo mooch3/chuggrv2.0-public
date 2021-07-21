@@ -41,6 +41,15 @@ const BetForms = ({ userName, uid, allFriends }) => {
 
   return (
     <Card>
+      <h1
+        style={{
+          textTransform: "uppercase",
+          letterSpacing: ".6rem",
+          margin: "3rem 0 1rem 0",
+        }}
+      >
+        Create Bet
+      </h1>
       <DropDown
         items={bets}
         resetThenSet={onSelectItem}

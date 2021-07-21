@@ -35,7 +35,11 @@ export const getServerSideProps = async (context) => {
       .get();
 
     querySnapshot.forEach((bet) => {
-      bets.push(bet.data());
+      if (bet.data().outstandingUsers.includes(uid)) {
+        bets.push(bet.data());
+      } else if (!bet.data().isFinished) {
+        bets.push(bet.data());
+      }
     });
     return {
       props: {

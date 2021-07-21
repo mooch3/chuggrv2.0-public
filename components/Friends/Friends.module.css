@@ -9,5 +9,7 @@
 
 
 .header {
-    margin: 2rem 0 4rem 0;
+    text-transform: uppercase;
+    letter-spacing: .6rem;
+    margin: 3rem 0 3rem 0;
 }

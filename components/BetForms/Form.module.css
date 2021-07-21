@@ -73,8 +73,8 @@
 }
 
 .header {
-  font-family: "Give You Glory";
-  text-align: left;
+  font-family: "Montserrat";
+  font-size: 1.5rem;
 }
 
 .form input[type="radio"] {
@@ -94,13 +94,21 @@
   color: rgba(50, 50, 190, .9);;
   border: none;
   padding: 0.15rem 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
 }
 
 .form-actions .toggle:hover {
   background-color: transparent;
   color: rgb(255, 145, 0);
+  text-decoration: underline;
 }
 
 .auth h1 {
   text-align: center;
+}
+
+.big {
+  letter-spacing: .6rem;
+  font-size: 2rem;
 }

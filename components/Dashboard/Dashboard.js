@@ -25,39 +25,48 @@ const Dashboard = ({
     pending ? setSelectedPendingBet(bet) : setSelectedBet(bet);
   };
 
+  const handleBet = () => {
+    setSelectedPendingBet(null);
+  };
+
+  // TODO: export to hook
   if (findBets) {
     useEffect(() => {
+      let data = [];
       const unsubscribe = firebase
         .firestore()
         .collection("testBets")
         .where("isFinished", "==", false)
         .onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {
-            if (!change.doc.data().allUsers.includes(uid)) {
-              if (change.type === "added") {
-                console.log('Change was added')
-                setPendingBets((prevValue) => [
-                  ...prevValue,
-                  change.doc.data(),
-                ]);
+            if (change.type === "added") {
+              if (!change.doc.data().allUsers.includes(uid)) {
+                data.push(change.doc.data());
+                setPendingBets([...data]);
               }
-              if (change.type === "modified") {
-                console.log('Change was modified')
-                const modifiedBets = newBets.filter(
-                  (bet) => bet.betID === change.doc.data().betID
+            }
+            if (change.type === "modified") {
+              if (change.doc.data().allUsers.includes(uid)) {
+                // if all uid in allUsers then filter out bet
+                data = data.filter(
+                  (bet) => bet.betID !== change.doc.data().betID
                 );
-                setPendingBets(modifiedBets);
-                setSelectedPendingBet(null);
+                setPendingBets([...data]);
               }
-              if (change.type === "removed") {
-                console.log('Change was removed')
-                const modifiedBets = newBets.filter(
-                  (bet) => bet.betID === change.doc.data().betID
+              // filter out old documents, then replace
+              if (!change.doc.data().allUsers.includes(uid)) {
+                data = data.filter(
+                  (bet) => bet.betID !== change.doc.data().betID
                 );
-                console.log(modifiedBets);
-                setPendingBets(modifiedBets);
-                setSelectedPendingBet(null);
+                setPendingBets([...data, change.doc.data()]);
               }
+            }
+            if (change.type === "removed") {
+              data = data.filter(
+                (bet) => bet.betID !== change.doc.data().betID
+              );
+              setPendingBets([...data]);
+              setSelectedPendingBet(null);
             }
           });
         });
@@ -67,9 +76,10 @@ const Dashboard = ({
       };
     }, [firebase]);
   }
-
+  // export to hook
   if (pending && !findBets) {
     useEffect(() => {
+      let data = [];
       const unsubscribe = firebase
         .firestore()
         .collection("testBets")
@@ -78,27 +88,38 @@ const Dashboard = ({
           snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
               if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                setPendingBets((prevValue) => [
-                  ...prevValue,
-                  change.doc.data(),
-                ]);
+                data.push(change.doc.data());
+                console.log("added", data);
+                setPendingBets([...data]);
               }
             }
             if (change.type === "modified") {
-              const modifiedBets = newBets.filter(
-                (bet) => bet.betID === change.doc.data().betID
-              );
-              console.log(modifiedBets);
-              setPendingBets(modifiedBets);
-              setSelectedPendingBet(null);
+              if (!change.doc.data().invitedUsers.hasOwnProperty(uid)) {
+                // if all uid is NOT in invitedUsers then filter out bet
+                data = data.filter(
+                  (bet) => bet.betID !== change.doc.data().betID
+                );
+                setPendingBets([...data]);
+                console.log("modified and filtered out", data);
+              }
+              // if uid IS in invitedUsers filter out old document with the new one
+              if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
+                data = data.filter(
+                  (bet) => bet.betID !== change.doc.data().betID
+                );
+                setPendingBets([...data, change.doc.data()]);
+                console.log("modified and replaced", data);
+              }
             }
             if (change.type === "removed") {
-              const modifiedBets = newBets.filter(
-                (bet) => bet.betID === change.doc.data().betID
-              );
-              console.log(modifiedBets);
-              setPendingBets(modifiedBets);
-              setSelectedPendingBet(null);
+              if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
+                // if uid is not in invitedUsers of removed document then filter out the document and update state
+                data = data.filter(
+                  (bet) => bet.betID !== change.doc.data().betID
+                );
+                console.log("removed", data);
+                setPendingBets([...data]);
+              }
             }
           });
         });
@@ -145,6 +166,8 @@ const Dashboard = ({
           </div>
         )}
         {main && <h1 className="centered">Dashboard</h1>}
+        {pending && !findBets && <h1 className="centered">Pending Bets</h1>}
+        {findBets && <h1 className="centered">Find Bets to Join</h1>}
         <Card>
           <DashboardDisplay
             bet={pending ? selectedPendingBet : selectedBet}
@@ -153,6 +176,8 @@ const Dashboard = ({
             uid={uid}
             userName={userName}
             findBets={findBets}
+            onRejectBet={handleBet}
+            onAcceptBet={handleBet}
           />
         </Card>
         <Card>

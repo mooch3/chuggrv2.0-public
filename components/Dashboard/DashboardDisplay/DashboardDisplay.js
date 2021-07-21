@@ -9,15 +9,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { deleteBet } from "../../../utils/deleteBet";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { removeFromInvited } from "../../../utils/removeFromInvited";
 
 const DashboardDisplay = ({
   bet,
   main,
-  pending,
   uid,
   userName,
   onDeleteBet,
-  findBets
+  findBets,
+  onRejectBet,
+  onAcceptBet
 }) => {
   const router = useRouter();
 
@@ -30,6 +32,8 @@ const DashboardDisplay = ({
   const handleReject = () => {
     // do something
     rejectBet(uid, betID);
+    removeFromInvited(betID, uid)
+    onRejectBet();
   };
 
   const handleDelete = () => {
@@ -42,7 +46,7 @@ const DashboardDisplay = ({
     <>
       {!bet ? (
         <div>
-          <h1>No bets to display</h1>
+          <h2>No bets to display</h2>
         </div>
       ) : (
         <>
@@ -75,7 +79,7 @@ const DashboardDisplay = ({
               <p>{displayTeams(bet.side1Users)}</p>
             </div>
             <div>
-              {pending && (
+              {!bet.acceptedUsers.includes(uid) && (
                 <>
                   <h4>Due:</h4>
                   <p>{dateFormat(bet.dueDate * 1000)}</p>
@@ -83,22 +87,23 @@ const DashboardDisplay = ({
               )}
             </div>
             <div>
-              {main && (
+              {bet.acceptedUsers.includes(uid) && (
                 <>
                   <h4>Due:</h4>
                   <p>{dateFormat(bet.dueDate * 1000)}</p>
                 </>
               )}
 
-              {pending && !main && bet.allUsers.includes(uid) && (
-                <RadioSelect
-                  bet={bet}
-                  pending={pending}
-                  betID={betID}
-                  uid={uid}
-                  userName={userName}
-                />
-              )}
+              {bet.allUsers.includes(uid) &&
+                !bet.acceptedUsers.includes(uid) && (
+                  <RadioSelect
+                    bet={bet}
+                    betID={betID}
+                    uid={uid}
+                    userName={userName}
+                    onAcceptBet={onAcceptBet}
+                  />
+                )}
             </div>
             <div>
               {bet.type === "event" && <h4>Against:</h4>}
@@ -116,30 +121,36 @@ const DashboardDisplay = ({
                   Bet Details <FontAwesomeIcon icon={faInfoCircle} />
                 </button>
               )}
-              {bet.acceptedUsers.includes(uid) && !main && (
+              {bet.acceptedUsers.includes(uid) && !bet.isFinished && !main && (
                 <div className={classes.delete}>
                   <button onClick={handleDelete}>
                     <FontAwesomeIcon icon={faTrash} /> Delete Bet
                   </button>
                 </div>
               )}
-              {pending && !findBets && !main && bet.allUsers.includes(uid) && (
-                <div className={classes.reject}>
-                  <button onClick={handleReject} className={classes.button}>
-                    Reject Bet
-                  </button>
-                </div>
-              )}
-              {findBets && (
-                <RadioSelect
-                  bet={bet}
-                  pending={pending}
-                  betID={betID}
-                  uid={uid}
-                  userName={userName}
-                  uninvited={true}
-                />
-              )}
+              {!findBets &&
+                !main &&
+                bet.allUsers.includes(uid) &&
+                !bet.isFinished &&
+                !bet.acceptedUsers.includes(uid) && (
+                  <div className={classes.reject}>
+                    <button onClick={handleReject} className={classes.button}>
+                      Reject Bet
+                    </button>
+                  </div>
+                )}
+              {findBets &&
+                !bet.allUsers.includes(uid) &&
+                !bet.invitedUsers.hasOwnProperty(uid) && (
+                  <RadioSelect
+                    bet={bet}
+                    betID={betID}
+                    uid={uid}
+                    userName={userName}
+                    uninvited={!bet.invitedUsers.hasOwnProperty(uid)}
+                    onAcceptBet={onAcceptBet}
+                  />
+                )}
             </div>
           </div>
         </>

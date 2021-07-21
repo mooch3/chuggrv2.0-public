@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import classes from "./Chat.module.css";
 import Message from "./Message";
 import { sendMessage } from "../../utils/sendMessage";
 
 const Chat = ({ firebase, user, title, userName, betId }) => {
   const [messages, setMessages] = useState([]);
-
   const [messageInput, setMessageInput] = useState("");
+
+  const messagesEndRef = useRef();
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -20,6 +25,7 @@ const Chat = ({ firebase, user, title, userName, betId }) => {
           if (change.type === "added") {
             // TODO: page refresh duplicates all messages
             setMessages((prevValue) => [...prevValue, change.doc.data()]);
+            scrollToBottom();
           }
         });
       });
@@ -80,6 +86,7 @@ const Chat = ({ firebase, user, title, userName, betId }) => {
               userName={message?.userName}
             />
           ))}
+          <div ref={messagesEndRef} />
         </div>
       </div>
       <div className={classes["chat-input-holder"]}>

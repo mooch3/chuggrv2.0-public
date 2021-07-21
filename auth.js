@@ -4,7 +4,6 @@ import { firebaseClient } from "./firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-// TODO: clear cookies on logout
 const AuthContext = createContext({
   token: "",
   isLoggedIn: false,

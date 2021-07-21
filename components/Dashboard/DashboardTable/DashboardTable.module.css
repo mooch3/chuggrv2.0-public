@@ -54,3 +54,7 @@
   width: 100%;
   min-width: 800px;
 }
+
+.title {
+  word-wrap: break-word;
+}

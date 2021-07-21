@@ -7,6 +7,7 @@ import { incrementBeersShotsGiven } from "../../utils/incrementBeersShotsGiven";
 import { incrementBeersShotsReceived } from "../../utils/incrementBeersShotsReceived";
 import { setWinner } from "../../utils/setWinner";
 import { fulfillBet } from "../../utils/fulfillBet";
+import { sliceString } from "../../helpers/sliceString";
 
 const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
   const [side, setSide] = useState("side1");
@@ -79,7 +80,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
             defaultChecked
             onChange={handleSelect}
           />
-          <label htmlFor="side1">{side1}</label>
+          <label htmlFor="side1">{side1.length > 10 ? sliceString(side1, 10) : side1}</label>
           <input
             type="radio"
             name="select"
@@ -87,7 +88,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
             value="side2"
             onChange={handleSelect}
           />
-          <label htmlFor="side2">{side2}</label>
+          <label htmlFor="side2">{side2.length > 10 ? sliceString(side2, 10) : side2}</label>
         </form>
       )}
       {!bet.acceptedUsers.includes(uid) &&
@@ -103,10 +104,8 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
       )}
       {isClosed && <h1>Make sure the bet gets fulfilled!</h1>}
       {isFulfilled && <h1>Nice job fulfilling your bet.</h1>}
-      {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.side1Users.hasOwnProperty(uid) && bet.winner === "one" && <h1>You won!</h1> }
-      {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.side1Users.hasOwnProperty(uid) && bet.winner === "two" && <h1>You lost this bet.</h1>}
-      {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.side2Users.hasOwnProperty(uid) && bet.winner === "two" && <h1>You won!</h1>}
-      {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.side2Users.hasOwnProperty(uid) && bet.winner === "one" && <h1>You lost this bet.</h1>}
+      {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.winner === "one" && <h1>{side1} Won!</h1> }
+      {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.winner === "two" && <h1>{side2} Won!</h1>}
 
     </div>
   );

@@ -52,7 +52,7 @@ const DashboardDisplay = ({
         <>
           <div className={classes.grid}>
             <div>
-              <h4>{bet.title}</h4>
+              <h4 className={classes.wrap}>{bet.title}</h4>
             </div>
             <div>
               {bet.type === "spread" ? (
@@ -75,8 +75,8 @@ const DashboardDisplay = ({
             <div>
               {bet.type === "event" && <h4>For:</h4>}
               {bet.type === "spread" && <h4>Over:</h4>}
-              {bet.type === "moneyline" && <h4>{bet.team1}:</h4>}
-              <p>{displayTeams(bet.side1Users)}</p>
+              {bet.type === "moneyline" && <h4 className={classes.wrap}>{bet.team1}:</h4>}
+              <p >{displayTeams(bet.side1Users)}</p>
             </div>
             <div>
               {!bet.acceptedUsers.includes(uid) && (
@@ -108,7 +108,7 @@ const DashboardDisplay = ({
             <div>
               {bet.type === "event" && <h4>Against:</h4>}
               {bet.type === "spread" && <h4>Under:</h4>}
-              {bet.type === "moneyline" && <h4>{bet.team2}:</h4>}
+              {bet.type === "moneyline" && <h4 className={classes.wrap}>{bet.team2}:</h4>}
               <p>{displayTeams(bet.side2Users)}</p>
             </div>
             <div>

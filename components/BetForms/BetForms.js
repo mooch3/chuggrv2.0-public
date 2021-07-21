@@ -37,7 +37,6 @@ const BetForms = ({ userName, uid, allFriends }) => {
   const onAddBet = (betObj) => {
     createBet(betObj, uid);
   };
-  // TODO: allow users to invite friends to bet
 
   return (
     <Card>

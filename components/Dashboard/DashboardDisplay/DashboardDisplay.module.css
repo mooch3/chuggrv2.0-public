@@ -9,6 +9,7 @@
   padding: 1rem;
   text-align: left;
   text-transform: uppercase;
+  max-width: 300px;
 }
 
 .link {
@@ -23,6 +24,10 @@
 .link:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.wrap {
+  word-wrap: break-word;
 }
 
 .reject {

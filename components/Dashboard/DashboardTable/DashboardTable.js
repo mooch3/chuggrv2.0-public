@@ -2,6 +2,7 @@ import { useState } from "react";
 import classes from "./DashboardTable.module.css";
 import { dateFormat } from "../../../helpers/dateFormat";
 import { findStatus } from "../../../helpers/findStatus";
+import { sliceString } from "../../../helpers/sliceString";
 
 const DashboardTable = ({ bets, onSelectBet, uid }) => {
 
@@ -39,9 +40,9 @@ const DashboardTable = ({ bets, onSelectBet, uid }) => {
                   onClick={() => handleClick(bet)}
                   className={selectBet === bet.betID ? classes.active : ""}
                 >
-                  <th scope="row">
+                  <th scope="row" className={classes.title}>
                     {bet.title.length > 25
-                      ? `${bet.title.substring(0, 25)}...`
+                      ? sliceString(bet.title, 25)
                       : bet.title}
                   </th>
                   <td>{bet.type}</td>

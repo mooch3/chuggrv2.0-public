@@ -14,31 +14,47 @@ import "firebase/firestore";
 const betSlug = ({ bet, session, userName }) => {
   firebaseClient();
   const [isDeleted, setIsDeleted] = useState(null);
-  
+
   const handleDelete = () => {
     setIsDeleted(true);
-  }
+  };
   if (session) {
     const { uid } = session;
-    
 
     return (
       <>
-      {isDeleted && <h1 className="centered">This bet has been deleted.</h1>}
-       {!isDeleted && <Row>
-          <h1 className="centered">Bet Details</h1>
-          <Card>
-            <DashboardDisplay bet={bet} uid={uid} onDeleteBet={handleDelete} />
-          </Card>
-          {bet.acceptedUsers.includes(uid) && <Chat
-            user={uid}
-            firebase={firebase}
-            betId={bet.betID}
-            title={bet.title}
-            userName={userName}
-          />}
-          <RadioSelect bet={bet} uid={uid} betID={bet.betID}/>
-        </Row>}
+        {isDeleted && <h1 className="centered">This bet has been deleted.</h1>}
+        {!isDeleted && (
+          <Row>
+            <h1
+              style={{
+                textTransform: "uppercase",
+                letterSpacing: ".6rem",
+                margin: "3rem auto 3rem auto",
+                textAlign: "center",
+              }}
+            >
+              Bet Details
+            </h1>
+            <Card>
+              <DashboardDisplay
+                bet={bet}
+                uid={uid}
+                onDeleteBet={handleDelete}
+              />
+            </Card>
+            {bet.acceptedUsers.includes(uid) && (
+              <Chat
+                user={uid}
+                firebase={firebase}
+                betId={bet.betID}
+                title={bet.title}
+                userName={userName}
+              />
+            )}
+            <RadioSelect bet={bet} uid={uid} betID={bet.betID} />
+          </Row>
+        )}
       </>
     );
   }

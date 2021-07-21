@@ -89,7 +89,6 @@ const Dashboard = ({
             if (change.type === "added") {
               if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
                 data.push(change.doc.data());
-                console.log("added", data);
                 setPendingBets([...data]);
               }
             }
@@ -100,7 +99,6 @@ const Dashboard = ({
                   (bet) => bet.betID !== change.doc.data().betID
                 );
                 setPendingBets([...data]);
-                console.log("modified and filtered out", data);
               }
               // if uid IS in invitedUsers filter out old document with the new one
               if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
@@ -108,7 +106,6 @@ const Dashboard = ({
                   (bet) => bet.betID !== change.doc.data().betID
                 );
                 setPendingBets([...data, change.doc.data()]);
-                console.log("modified and replaced", data);
               }
             }
             if (change.type === "removed") {
@@ -117,7 +114,6 @@ const Dashboard = ({
                 data = data.filter(
                   (bet) => bet.betID !== change.doc.data().betID
                 );
-                console.log("removed", data);
                 setPendingBets([...data]);
               }
             }

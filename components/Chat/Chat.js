@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import classes from "./Chat.module.css";
 import Message from "./Message";
 import { sendMessage } from "../../utils/sendMessage";
+import { sliceString } from "../../helpers/sliceString";
 
 const Chat = ({ firebase, user, title, userName, betId }) => {
   const [messages, setMessages] = useState([]);
@@ -55,7 +56,6 @@ const Chat = ({ firebase, user, title, userName, betId }) => {
   };
 
   const handleSend = (event) => {
-    // TODO: allow user to send messages by pressing the enter key
     const message = {
       body: messageInput,
       uid: user,
@@ -74,7 +74,7 @@ const Chat = ({ firebase, user, title, userName, betId }) => {
             <img src="/CHUGGRLogoSM.png" alt="" />
           </div>
           <div className={classes["chat-group-name"]}>
-            <h4>{title}</h4>
+            <h4>{title.length > 15 ? sliceString(title, 15) : title}</h4>
           </div>
         </div>
         <div className={classes["chat-messages"]}>

@@ -20,6 +20,7 @@ const Profile = ({ user, pastBets, session }) => {
               textTransform: "uppercase",
               letterSpacing: ".6rem",
               margin: "3rem auto 1rem auto",
+              textAlign: "center"
             }}
           >
             Profile Details

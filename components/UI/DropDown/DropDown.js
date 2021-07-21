@@ -17,8 +17,6 @@ const DropDown = ({ items, resetThenSet, title, friendDD, onCloseList }) => {
     return; 
   }, [items])
 
-  // TODO: decide if handleClose is needed for !friendDD 
-
   const toggleList = () => {
     setListOpen(prevValue => !prevValue);
   };

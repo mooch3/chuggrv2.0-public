@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
     <>
       <MainNavigation openNav={openNavHandler} open={open} />
       {open && <DropDown open={open} close={handleSelect} />}
-      {!open && <main className={classes.main}>{children}</main>}
+      <main className={classes.main}>{children}</main>
       <Footer />
     </>
   );

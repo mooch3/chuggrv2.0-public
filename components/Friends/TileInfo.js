@@ -16,7 +16,10 @@ const TileInfo = ({ firstName, lastName, userName, friends, bet, user }) => {
           <p>
           🍺 {bet?.stake.beers} 🥃 {bet?.stake.shots}
           </p>
-          <p>{bet?.winner === "one" && bet?.side1Users.hasOwnProperty(user.uid) ? "Won" : "Lost"}</p>
+          <p>{bet?.winner === "one" && bet?.side1Users.hasOwnProperty(user.uid) && "Won"}</p>
+          <p>{bet?.winner === "two" && bet?.side1Users.hasOwnProperty(user.uid) && "Lost"}</p>
+          <p>{bet?.winner === "two" && bet?.side2Users.hasOwnProperty(user.uid) && "Won"}</p>
+          <p>{bet?.winner === "one" && bet?.side2Users.hasOwnProperty(user.uid) && "Lost"}</p>
         </>
       )}
     </div>

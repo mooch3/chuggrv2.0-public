@@ -48,6 +48,7 @@
 .chat-partner-name,
 .chat-group-name {
   margin: 0 0 0 75px;
+  text-align: center;
 }
 
 .chat-messages {
@@ -93,4 +94,14 @@
   padding: 0 15px;
   border: none;
   font-family: "Montserrat", sans-serif;
+}
+
+@media screen and (max-width: 400px) {
+  .bet-chat {
+    margin: 0;
+    padding: 1rem;
+  }
+  .group-chat {
+    width: 350px;
+  }
 }

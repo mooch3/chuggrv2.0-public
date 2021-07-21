@@ -26,6 +26,9 @@
 
 .container form label {
   font-size: 1rem;
+  word-wrap: break-word;
+  max-width: 160px;
+  max-height: 50px;
 }
 
 .pending-container h4 {
@@ -43,8 +46,16 @@
 
 .pending-container form label {
   padding: 0 1rem;
+  word-wrap: break-word;
+  max-width: 150px;
 }
 .pending-container {
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    margin: 2rem auto;
+  }
 }

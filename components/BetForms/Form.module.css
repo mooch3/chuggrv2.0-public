@@ -112,3 +112,9 @@
   letter-spacing: .6rem;
   font-size: 2rem;
 }
+
+@media screen and (max-width: 400px) {
+  .form-control input {
+    width: 290px;
+  }
+}

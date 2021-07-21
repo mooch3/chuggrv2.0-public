@@ -35,4 +35,4 @@ yarn-error.log*
 
 # secrets
 secrets.json
-firebaseClient.js
+/firebaseClient.js

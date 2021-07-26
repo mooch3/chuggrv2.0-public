@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CHUGGR v2.1 (refactored)
+CHUGGR is a social media app that allows friends to connect over sports and beverages from wherever they are in the world. It is light-hearted application that was created during the COVID Pandemic. Originally, it was created as a tool to augment our fantasy leagues and give our friends a fun user experience that includes realtime chats, user authentication, friends, follows, and betting. Web v2.1 is live and available to join here: https://chuggr.io/
 
-## Getting Started
+## DEMO: ##
+Login, view bets, send messages, find bets, view friends, logout:
 
-First, run the development server:
+![CHUGGR App Demo](CHUGGRDEMO.gif)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Through building CHUGGR as an independent side project, I developed the following skills: ###
+ * Mastery of state management and DOM manipulation
+ * Deep understanding of getServerSideProps and the Next.js framework
+ * Mastery of React's Context API
+ * Mastery of hooks and component life cycles in React.js
+ * MVC Architecture
+ * Firebase Firestore NoSQL database for bet and message storage
+ * Authentication and Cookies
+ * Realtime Updates of pending bets and chats using Firestore 
+ * Git version control, branching, rebasing
+ * Custom backend development and middleware integration
+ * Extensive use of HTTPS protocols
+ * Javascript, Node.js, HTML5, Next.js, React
+ * Extensive use of CSS, grids, and flexbox to create a mobile responsive design
+ * Firebase Hosting
+ * Clear communication of data model and changes with friend who is developing the CHUGGR iOS app.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The [iOS Repo](https://github.com/bolderkat/CHUGGR) is now available on github 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Next Steps
+In upcoming releases, I will be updating the following:
+ * Update your profile with your latest information
+ * Allow users to upload images
+ * Upload videos that show bet fulfillment
+ * UI that displays which friends you have selected to invite to a bet
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Keep CHUGGIN'.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is maintained by Derek Smith (Web) and Daniel Luo (iOS).

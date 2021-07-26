@@ -3,7 +3,7 @@ import "firebase/firestore";
 
 const incrementFriendTotal = (uid) => {
   try {
-    const userRef = firebase.firestore().collection("testUsers").doc(uid);
+    const userRef = firebase.firestore().collection("users").doc(uid);
     userRef.update({ numFriends: firebase.firestore.FieldValue.increment(1) });
 
     // user should be incremented
@@ -15,13 +15,13 @@ const incrementFriendTotal = (uid) => {
 const addFriend = (friendObj, uid) => {
   try {
 
-    firebase.firestore().collection('testUsers').doc(uid).collection('testFriends').doc(friendObj.uid).get().then(doc => {
+    firebase.firestore().collection('users').doc(uid).collection('friends').doc(friendObj.uid).get().then(doc => {
         if (!doc.exists) {
             firebase
             .firestore()
-            .collection("testUsers")
+            .collection("users")
             .doc(uid)
-            .collection("testFriends")
+            .collection("friends")
             .doc(friendObj.uid)
             .set(friendObj);
       

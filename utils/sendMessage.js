@@ -5,7 +5,7 @@ export const sendMessage = (messageObj, betID) => {
   try {
     firebase
       .firestore()
-      .collection("testChatRooms")
+      .collection("chatRooms")
       .doc(betID)
       .collection("actualMessages")
       .doc()

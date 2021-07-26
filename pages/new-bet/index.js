@@ -3,6 +3,7 @@ import db from "../../utils/db";
 import { verifyIdToken } from "../../firebaseAdmin";
 import nookies from "nookies";
 import { firebaseClient } from "../../firebaseClient";
+import Head from "next/head";
 
 const NewBet = ({ userName, session, allFriends }) => {
   firebaseClient();
@@ -11,6 +12,13 @@ const NewBet = ({ userName, session, allFriends }) => {
     const { uid } = session;
     return (
       <>
+      <Head>
+        <title>Create Bets</title>
+        <meta
+          name="description"
+          content="Make a bet on CHUGGR"
+        />
+      </Head>
         <BetForms userName={userName} uid={uid} allFriends={allFriends} />
       </>
     );
@@ -23,10 +31,10 @@ export const getServerSideProps = async (context) => {
 
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
-    const userSnapshot = await db.collection("testUsers").doc(uid).get();
-    const friendSnapshot = await db.collection("testUsers").doc(uid).collection("testFriends").get();
+    const userSnapshot = await db.collection("users").doc(uid).get();
+    const friendSnapshot = await db.collection("users").doc(uid).collection("friends").get();
     
     friendSnapshot.forEach(friend => {
         // invitedUsers: {uid: userName} 

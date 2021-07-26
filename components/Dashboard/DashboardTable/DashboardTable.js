@@ -41,8 +41,8 @@ const DashboardTable = ({ bets, onSelectBet, uid }) => {
                   className={selectBet === bet.betID ? classes.active : ""}
                 >
                   <th scope="row" className={classes.title}>
-                    {bet.title.length > 25
-                      ? sliceString(bet.title, 25)
+                    {bet.title.length > 40
+                      ? sliceString(bet.title, 40)
                       : bet.title}
                   </th>
                   <td>{bet.type}</td>

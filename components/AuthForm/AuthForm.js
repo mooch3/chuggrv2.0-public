@@ -10,7 +10,7 @@ import Overlay from "../UI/Overlay/Overlay";
 import LoadingSpinner from "../UI/LoadingSpinner/LoadingSpinner";
 
 const isNotEmpty = (value) => value.trim().length > 0;
-const isValidPass = (value) => value.length > 6;
+const isValidPass = (value) => value.trim().length > 0;
 const isValidEmail = (value) => value.includes("@");
 
 const AuthForm = () => {
@@ -160,7 +160,7 @@ const AuthForm = () => {
         .then(() => {
           firebase
             .firestore()
-            .collection("testUsers")
+            .collection("users")
             .doc(firebase.auth().currentUser.uid)
             .set({ ...user, ...{ uid: firebase.auth().currentUser.uid } });
           bioReset();
@@ -260,7 +260,7 @@ const AuthForm = () => {
                   />
                   {passwordHasError && (
                     <p className={classes["invalid-notif"]}>
-                      Your password must be greater than 6 characters.
+                      Please enter a password.
                     </p>
                   )}
                 </div>

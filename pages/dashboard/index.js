@@ -5,6 +5,7 @@ import { verifyIdToken } from "../../firebaseAdmin";
 import db from "../../utils/db";
 import firebase from "firebase";
 import "firebase/firestore";
+import Head from 'next/head';
 
 const FullDashboard = ({ session, bets }) => {
   firebaseClient();
@@ -14,6 +15,13 @@ const FullDashboard = ({ session, bets }) => {
 
     return (
       <>
+      <Head>
+        <title>Dashboard</title>
+        <meta 
+          name="description"
+          content="CHUGGR dashboard for bets and challenges"
+        />
+      </Head>
         <Dashboard firebase={firebase} bets={bets} main={true} uid={uid} />
       </>
     );
@@ -26,11 +34,11 @@ export const getServerSideProps = async (context) => {
   let bets = [];
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
     const querySnapshot = await db
-      .collection("testBets")
+      .collection("bets")
       .where("acceptedUsers", "array-contains", uid)
       .get();
 

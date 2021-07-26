@@ -7,6 +7,7 @@ import { firebaseClient } from "../../firebaseClient";
 import nookies from "nookies";
 import { verifyIdToken } from "../../firebaseAdmin";
 import db from "../../utils/db";
+import Head from 'next/head';
 
 const Profile = ({ user, pastBets, session }) => {
   firebaseClient();
@@ -14,6 +15,13 @@ const Profile = ({ user, pastBets, session }) => {
   if (session) {
     return (
       <>
+      <Head>
+        <title>{user?.userName}'s Profile</title>
+        <meta
+          name="description"
+          content={`${user.userName}'s CHUGGR profile`}
+        />
+      </Head>
         <Row>
           <h1
             style={{
@@ -63,12 +71,12 @@ export const getServerSideProps = async (context) => {
   let pastBets = [];
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
-    const userSnapshot = await db.collection("testUsers").doc(uid).get();
+    const userSnapshot = await db.collection("users").doc(uid).get();
     const betSnapshot = await db
-      .collection("testBets")
+      .collection("bets")
       .where("acceptedUsers", "array-contains", uid)
       .where("isFinished", "==", true)
       .get();

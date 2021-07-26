@@ -4,11 +4,18 @@
     flex-flow: column;
   }
   
-  .message-sender {
+  .message-sender-user {
     font-size: .8rem;
     margin: 0 0 15px;
     color: #30649c;
     align-self: flex-start;
+    margin: 15px 15px 0 15px;
+  }
+  .message-sender {
+    font-size: .8rem;
+    margin: 15px 15px 0 15px;
+    color: #30649c;
+    align-self: flex-end;
   }
   
   .message-box {

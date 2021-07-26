@@ -66,7 +66,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
       {!bet.acceptedUsers.includes(uid) &&
         !bet.isFinished &&
         bet.dueDate > Date.now() / 1000 && <h4>Join Bet</h4>}
-      {bet.acceptedUsers.includes(uid) && !bet.isFinished && <h1>Close Bet</h1>}
+      {bet.acceptedUsers.includes(uid) && !bet.isFinished && !isClosed && <h1>Close Bet</h1>}
       {bet.isFinished && bet.outstandingUsers.includes(uid) && (
         <h4>Did you finish your drinks?</h4>
       )}
@@ -102,7 +102,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
       {bet.isFinished && bet.outstandingUsers.includes(uid) && !isFulfilled && (
         <PrettyButton onClick={handleFulfillBet}>Yes</PrettyButton>
       )}
-      {isClosed && <h1>Make sure the bet gets fulfilled!</h1>}
+      {isClosed && <h1>This bet is now closed. Make sure the bet gets fulfilled!</h1>}
       {isFulfilled && <h1>Nice job fulfilling your bet.</h1>}
       {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.winner === "one" && <h1>{side1} Won!</h1> }
       {bet.isFinished && !bet.outstandingUsers.includes(uid) && bet.winner === "two" && <h1>{side2} Won!</h1>}

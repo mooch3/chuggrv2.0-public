@@ -10,6 +10,7 @@ import { firebaseClient } from "../../../firebaseClient";
 import nookies from "nookies";
 import firebase from "firebase";
 import "firebase/firestore";
+import Head from "next/head";
 
 const betSlug = ({ bet, session, userName }) => {
   firebaseClient();
@@ -23,6 +24,13 @@ const betSlug = ({ bet, session, userName }) => {
 
     return (
       <>
+      <Head>
+        <title>{bet?.title}</title>
+        <meta
+          name="description"
+          content="A bet made on CHUGGR."
+        />
+      </Head>
         {isDeleted && <h1 className="centered">This bet has been deleted.</h1>}
         {!isDeleted && (
           <Row>
@@ -43,16 +51,16 @@ const betSlug = ({ bet, session, userName }) => {
                 onDeleteBet={handleDelete}
               />
             </Card>
-            {bet.acceptedUsers.includes(uid) && (
+            {bet?.acceptedUsers.includes(uid) && (
               <Chat
                 user={uid}
                 firebase={firebase}
-                betId={bet.betID}
-                title={bet.title}
+                betId={bet?.betID}
+                title={bet?.title}
                 userName={userName}
               />
             )}
-            <RadioSelect bet={bet} uid={uid} betID={bet.betID} />
+            <RadioSelect bet={bet} uid={uid} betID={bet?.betID} />
           </Row>
         )}
       </>
@@ -65,13 +73,13 @@ export default betSlug;
 export const getServerSideProps = async (context) => {
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
     const { betSlug } = context.params;
 
-    const betSnapshot = await db.collection("testBets").doc(betSlug).get();
-    const userSnapshot = await db.collection("testUsers").doc(uid).get();
+    const betSnapshot = await db.collection("bets").doc(betSlug).get();
+    const userSnapshot = await db.collection("users").doc(uid).get();
 
     const errorCode = betSnapshot.exists ? false : true;
 

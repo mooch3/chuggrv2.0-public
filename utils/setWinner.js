@@ -9,7 +9,7 @@ export const setWinner = (betID, side) => {
   if (side === "side2") {
     winningSide = "two";
   }
-  firebase.firestore().collection("testBets").doc(betID).set(
+  firebase.firestore().collection("bets").doc(betID).set(
     {
       winner: winningSide,
       isFinished: true,

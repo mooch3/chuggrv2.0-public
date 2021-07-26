@@ -5,6 +5,7 @@ import { firebaseClient } from "../../firebaseClient";
 import db from "../../utils/db";
 import firebase from "firebase";
 import "firebase/firestore";
+import Head from "next/head";
 
 const PendingBets = ({ session, userName }) => {
   firebaseClient();
@@ -13,6 +14,13 @@ const PendingBets = ({ session, userName }) => {
     const { uid } = session;
     return (
       <>
+      <Head>
+        <title>Pending Bets</title>
+        <meta
+          name="description"
+          content="Bets you've been invited to on CHUGGR"
+        />
+      </Head>
         <Dashboard
           main={false}
           pending={true}
@@ -30,10 +38,10 @@ export default PendingBets;
 export const getServerSideProps = async (context) => {
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
-    const userSnapshot = await db.collection("testUsers").doc(uid).get();
+    const userSnapshot = await db.collection("users").doc(uid).get();
 
     return {
       props: {

@@ -5,6 +5,7 @@ import { verifyIdToken } from "../../firebaseAdmin";
 import db from "../../utils/db";
 import firebase from "firebase";
 import "firebase/firestore";
+import Head from "next/head";
 
 const findBetsDashboard = ({ session, userName }) => {
   firebaseClient();
@@ -14,6 +15,13 @@ const findBetsDashboard = ({ session, userName }) => {
 
     return (
       <>
+      <Head>
+        <title>Find Bets</title>
+        <meta 
+          name="description"
+          content="Find drinking bets to join on CHUGGR."
+        />
+      </Head>
         <Dashboard findBets={true} uid={uid} userName={userName} firebase={firebase} pending={true} />
       </>
     );
@@ -26,10 +34,10 @@ export const getServerSideProps = async (context) => {
   let bets = [];
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
     
-    const userSnapshot = await db.collection("testUsers").doc(uid).get();
+    const userSnapshot = await db.collection("users").doc(uid).get();
 
     return {
       props: {

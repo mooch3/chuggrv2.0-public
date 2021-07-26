@@ -5,7 +5,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 const AuthContext = createContext({
-  token: "",
+  __session: "",
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
@@ -19,12 +19,12 @@ export const AuthProvider = ({ children }) => {
     return firebase.auth().onIdTokenChanged(async (user) => {
       if (!user) {
         setUser(null);
-        nookies.set(undefined, "token", "", {});
+        nookies.set(undefined, "__session", "", {});
         return;
       }
         const token = await user.getIdToken();
         setUser(user);
-        nookies.set(undefined, "token", token, {});
+        nookies.set(undefined, "__session", token, {});
     });
   }, []);
 

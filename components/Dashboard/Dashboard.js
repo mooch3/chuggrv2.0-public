@@ -35,8 +35,9 @@ const Dashboard = ({
       let data = [];
       const unsubscribe = firebase
         .firestore()
-        .collection("testBets")
+        .collection("bets")
         .where("isFinished", "==", false)
+        .where("dueDate", '>', Date.now()/1000)
         .onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {
             if (change.type === "added") {
@@ -82,7 +83,7 @@ const Dashboard = ({
       let data = [];
       const unsubscribe = firebase
         .firestore()
-        .collection("testBets")
+        .collection("bets")
         .where("allUsers", "array-contains", uid)
         .onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {
@@ -129,7 +130,7 @@ const Dashboard = ({
     useEffect(() => {
       const unsubscribe = firebase
         .firestore()
-        .collection("testBets")
+        .collection("bets")
         .where("allUsers", "array-contains", uid)
         .onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {

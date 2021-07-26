@@ -5,13 +5,25 @@ import { firebaseClient } from "../../firebaseClient";
 import db from "../../utils/db";
 import firebase from "firebase";
 import "firebase/firestore";
+import Head from 'next/head';
 
 const friendsPage = ({ friendSearch, session }) => {
   firebaseClient();
 
   if (session) {
     const { uid } = session;
-    return <Friends friendSearch={friendSearch} firebase={firebase} uid={uid} />;
+    return (
+      <>
+      <Head>
+        <title>Friends</title>
+        <meta 
+          name="description"
+          content="Meet and find friends on CHUGGR"
+        />
+      </Head>
+        <Friends friendSearch={friendSearch} firebase={firebase} uid={uid} />
+      </>
+    );
   }
 };
 
@@ -22,12 +34,10 @@ export const getServerSideProps = async (context) => {
 
   try {
     const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
+    const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
-    const friendSearchSnapshot = await db
-      .collection("testUsers")
-      .get();
+    const friendSearchSnapshot = await db.collection("users").get();
 
     friendSearchSnapshot.forEach((user) => {
       friendSearch.push(user.data());

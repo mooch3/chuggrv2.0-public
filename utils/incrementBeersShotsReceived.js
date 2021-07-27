@@ -17,7 +17,7 @@ export const incrementBeersShotsReceived = (bet, side) => {
       for (const user in losers) {
         firebase
           .firestore()
-          .collection("users")
+          .collection("testUsers")
           .doc(user)
           .update({
             "drinksReceived.beers": firebase.firestore.FieldValue.increment(

@@ -6,7 +6,7 @@ import { sliceString } from "../../../helpers/sliceString";
 
 const DashboardTable = ({ bets, onSelectBet, uid }) => {
 
-  const [selectBet, setSelectBet] = bets?.length === 0
+  const [selectBet, setSelectBet] = !bets || bets.length === 0
     ? useState(null)
     : useState(bets[0].betID);
 

@@ -33,8 +33,8 @@ export const getServerSideProps = async (context) => {
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
-    const userSnapshot = await db.collection("users").doc(uid).get();
-    const friendSnapshot = await db.collection("users").doc(uid).collection("friends").get();
+    const userSnapshot = await db.collection("testUsers").doc(uid).get();
+    const friendSnapshot = await db.collection("testUsers").doc(uid).collection("testFriends").get();
     
     friendSnapshot.forEach(friend => {
         // invitedUsers: {uid: userName} 

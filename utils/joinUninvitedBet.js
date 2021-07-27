@@ -15,7 +15,7 @@ export const joinUninvitedBet = (side, betID, uid, userName) => {
 
   firebase
     .firestore()
-    .collection("bets")
+    .collection("testBets")
     .doc(betID)
     .set({
       [selectedSide]: {

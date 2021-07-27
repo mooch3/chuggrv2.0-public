@@ -3,7 +3,7 @@ import "firebase/firestore";
 
 export const addToAllUsers = (betID, uid) => {
     try {
-        firebase.firestore().collection('bets').doc(betID).update({
+        firebase.firestore().collection('testBets').doc(betID).update({
             allUsers: firebase.firestore.FieldValue.arrayUnion(uid),
         })
     } catch (err) {

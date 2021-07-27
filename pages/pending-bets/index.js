@@ -41,7 +41,7 @@ export const getServerSideProps = async (context) => {
     const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
-    const userSnapshot = await db.collection("users").doc(uid).get();
+    const userSnapshot = await db.collection("testUsers").doc(uid).get();
 
     return {
       props: {

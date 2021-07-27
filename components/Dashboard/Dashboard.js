@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DashboardTable from "./DashboardTable/DashboardTable";
 import DashboardDisplay from "./DashboardDisplay/DashboardDisplay";
 import classes from "./Dashboard.module.css";
 import Card from "../UI/Card";
 import Link from "next/link";
+import useListener from "../../hooks/useListener";
+import usePendingBetsListener from "../../hooks/usePendingBetsListener";
 
 const Dashboard = ({
   bets,
@@ -15,10 +17,9 @@ const Dashboard = ({
   findBets,
 }) => {
   const [selectedBet, setSelectedBet] =
-    bets?.length > 0 ? useState(bets[0]) : useState(null);
-  const [newBets, setNewBets] = useState([]);
-
-  const [pendingBets, setPendingBets] = useState([]);
+    !bets || bets.length === 0 ? useState(null) : useState(bets[0]);
+  const { pendingBets } = useListener(findBets, main, firebase, uid);
+  const { newBets } = usePendingBetsListener(uid, firebase, pending);
   const [selectedPendingBet, setSelectedPendingBet] = useState(null);
 
   const handleDisplayBet = (bet) => {
@@ -28,126 +29,6 @@ const Dashboard = ({
   const handleBet = () => {
     setSelectedPendingBet(null);
   };
-
-  // TODO: export to hook
-  if (findBets) {
-    useEffect(() => {
-      let data = [];
-      const unsubscribe = firebase
-        .firestore()
-        .collection("bets")
-        .where("isFinished", "==", false)
-        .where("dueDate", '>', Date.now()/1000)
-        .onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              if (!change.doc.data().allUsers.includes(uid)) {
-                data.push(change.doc.data());
-                setPendingBets([...data]);
-              }
-            }
-            if (change.type === "modified") {
-              if (change.doc.data().allUsers.includes(uid)) {
-                // if all uid in allUsers then filter out bet
-                data = data.filter(
-                  (bet) => bet.betID !== change.doc.data().betID
-                );
-                setPendingBets([...data]);
-              }
-              // filter out old documents, then replace
-              if (!change.doc.data().allUsers.includes(uid)) {
-                data = data.filter(
-                  (bet) => bet.betID !== change.doc.data().betID
-                );
-                setPendingBets([...data, change.doc.data()]);
-              }
-            }
-            if (change.type === "removed") {
-              data = data.filter(
-                (bet) => bet.betID !== change.doc.data().betID
-              );
-              setPendingBets([...data]);
-              setSelectedPendingBet(null);
-            }
-          });
-        });
-      return () => {
-        unsubscribe();
-        setPendingBets([]);
-      };
-    }, [firebase]);
-  }
-  // export to hook
-  if (pending && !findBets) {
-    useEffect(() => {
-      let data = [];
-      const unsubscribe = firebase
-        .firestore()
-        .collection("bets")
-        .where("allUsers", "array-contains", uid)
-        .onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                data.push(change.doc.data());
-                setPendingBets([...data]);
-              }
-            }
-            if (change.type === "modified") {
-              if (!change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                // if all uid is NOT in invitedUsers then filter out bet
-                data = data.filter(
-                  (bet) => bet.betID !== change.doc.data().betID
-                );
-                setPendingBets([...data]);
-              }
-              // if uid IS in invitedUsers filter out old document with the new one
-              if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                data = data.filter(
-                  (bet) => bet.betID !== change.doc.data().betID
-                );
-                setPendingBets([...data, change.doc.data()]);
-              }
-            }
-            if (change.type === "removed") {
-              if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                // if uid is not in invitedUsers of removed document then filter out the document and update state
-                data = data.filter(
-                  (bet) => bet.betID !== change.doc.data().betID
-                );
-                setPendingBets([...data]);
-              }
-            }
-          });
-        });
-      return () => {
-        unsubscribe();
-        setPendingBets([]);
-      };
-    }, [firebase]);
-  }
-  if (main) {
-    useEffect(() => {
-      const unsubscribe = firebase
-        .firestore()
-        .collection("bets")
-        .where("allUsers", "array-contains", uid)
-        .onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              if (change.doc.data().invitedUsers.hasOwnProperty(uid)) {
-                setNewBets((prevValue) => [...prevValue, change.doc.data()]);
-              }
-            }
-          });
-        });
-
-      return () => {
-        unsubscribe();
-        setNewBets([]);
-      };
-    }, [firebase]);
-  }
 
   return (
     <>

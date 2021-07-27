@@ -78,8 +78,8 @@ export const getServerSideProps = async (context) => {
 
     const { betSlug } = context.params;
 
-    const betSnapshot = await db.collection("bets").doc(betSlug).get();
-    const userSnapshot = await db.collection("users").doc(uid).get();
+    const betSnapshot = await db.collection("testBets").doc(betSlug).get();
+    const userSnapshot = await db.collection("testUsers").doc(uid).get();
 
     const errorCode = betSnapshot.exists ? false : true;
 

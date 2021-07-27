@@ -17,7 +17,7 @@ const Chat = ({ firebase, user, title, userName, betId }) => {
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
-      .collection("chatRooms")
+      .collection("testChatRooms")
       .doc(betId)
       .collection("actualMessages")
       .orderBy("timestamp")

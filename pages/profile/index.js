@@ -74,9 +74,9 @@ export const getServerSideProps = async (context) => {
     const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
-    const userSnapshot = await db.collection("users").doc(uid).get();
+    const userSnapshot = await db.collection("testUsers").doc(uid).get();
     const betSnapshot = await db
-      .collection("bets")
+      .collection("testBets")
       .where("acceptedUsers", "array-contains", uid)
       .where("isFinished", "==", true)
       .get();

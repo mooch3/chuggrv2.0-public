@@ -11,9 +11,9 @@ const Friends = ({ friendSearch, firebase, uid }) => {
   useEffect(() => {
     const unsubscribe = firebase
       .firestore()
-      .collection("users")
+      .collection("testUsers")
       .doc(uid)
-      .collection("friends")
+      .collection("testFriends")
       .onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           if (change.type === "added") {

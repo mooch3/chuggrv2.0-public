@@ -160,7 +160,7 @@ const AuthForm = () => {
         .then(() => {
           firebase
             .firestore()
-            .collection("testUsers")
+            .collection("users")
             .doc(firebase.auth().currentUser.uid)
             .set({ ...user, ...{ uid: firebase.auth().currentUser.uid } });
           bioReset();

@@ -38,7 +38,7 @@ export const getServerSideProps = async (context) => {
     const { uid } = token;
 
     const querySnapshot = await db
-      .collection("testBets")
+      .collection("bets")
       .where("acceptedUsers", "array-contains", uid)
       .get();
 

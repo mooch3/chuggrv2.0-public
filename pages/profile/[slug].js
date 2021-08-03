@@ -78,10 +78,10 @@ export const getServerSideProps = async (context) => {
 
     const { slug } = context.params;
 
-    const profileSnapshot = await db.collection("testUsers").doc(slug).get();
+    const profileSnapshot = await db.collection("users").doc(slug).get();
 
     const profileBets = await db
-      .collection("testBets")
+      .collection("bets")
       .where("acceptedUsers", "array-contains", slug)
       .where("isFinished", "==", true)
       .get();

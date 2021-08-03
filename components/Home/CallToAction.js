@@ -33,9 +33,9 @@ const CallToAction = () => {
           <h3>
             CHUGGR is a social media and beer betting app that lets your connect
             with people, keep track of bets, and make your friends drink their
-            words! With three available bet types, you can bet a beer on almost
+            words. With three available bet types, you can bet a beer on almost
             anything you can think of. Keep track of your wins, losses, drinks
-            given, drinks recieved, and friends!
+            given, drinks received, and friends!
           </h3>
           <em> Please drink responsibly.</em>
           <PrettyButton onClick={handleCreate}>CREATE ACCOUNT</PrettyButton>

@@ -5,7 +5,7 @@ import { removeFromInvited } from "./removeFromInvited";
 export const rejectBet = (uid, betID) => {
   firebase
     .firestore()
-    .collection("testBets")
+    .collection("bets")
     .doc(betID)
     .set(
       {

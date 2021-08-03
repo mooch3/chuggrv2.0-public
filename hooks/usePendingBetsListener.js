@@ -10,7 +10,7 @@ const usePendingBetsListener = (uid, firebase, pending) => {
     useEffect(() => {
         const unsubscribe = firebase
           .firestore()
-          .collection("testBets")
+          .collection("bets")
           .where("allUsers", "array-contains", uid)
           .onSnapshot((snapshot) => {
             snapshot.docChanges().forEach((change) => {

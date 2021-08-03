@@ -4,7 +4,7 @@ import { decrementBets } from "./decrementBets";
 
 export const deleteBet = (betID, allUsers) => {
     try {
-        firebase.firestore().collection('testBets').doc(betID).delete();
+        firebase.firestore().collection('bets').doc(betID).delete();
 
         allUsers.forEach(user => {
             decrementBets(user)

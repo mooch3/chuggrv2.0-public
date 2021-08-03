@@ -4,7 +4,7 @@ import "firebase/firestore";
 export const moveToAcceptedUsers = (betID, uid) => {
   firebase
     .firestore()
-    .collection("testBets")
+    .collection("bets")
     .doc(betID)
     .update({
       acceptedUsers: firebase.firestore.FieldValue.arrayUnion(uid),

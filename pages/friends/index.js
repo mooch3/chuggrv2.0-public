@@ -37,7 +37,7 @@ export const getServerSideProps = async (context) => {
     const token = await verifyIdToken(cookies.__session);
     const { uid } = token;
 
-    const friendSearchSnapshot = await db.collection("testUsers").get();
+    const friendSearchSnapshot = await db.collection("users").get();
 
     friendSearchSnapshot.forEach((user) => {
       friendSearch.push(user.data());

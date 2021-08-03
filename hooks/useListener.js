@@ -6,12 +6,12 @@ const useListener = (findBets, main, firebase, uid) => {
   const query = findBets
   ? firebase
       .firestore()
-      .collection("testBets")
+      .collection("bets")
       .where("isFinished", "==", false)
       .where("dueDate", ">", Date.now() / 1000)
   : firebase
       .firestore()
-      .collection("testBets")
+      .collection("bets")
       .where("allUsers", "array-contains", uid)
       .where("isFinished", "==", false)
 

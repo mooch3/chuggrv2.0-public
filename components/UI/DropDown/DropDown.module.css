@@ -46,6 +46,7 @@
   font-weight: 300;
   text-align: left;
   -webkit-overflow-scrolling: touch;
+  overflow: auto;
 }
 
 .scroll-list {

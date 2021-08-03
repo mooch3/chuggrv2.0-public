@@ -33,6 +33,12 @@ const DropDown = ({ items, resetThenSet, title, friendDD, onCloseList }) => {
       resetThenSet(item)
   }
 
+  const handleToggleAllItems = (items) => {
+    items.forEach(item => {
+      resetThenSet(item);
+    })
+  }
+
   return (
     <div className={classes.wrapper}>
       <button className={classes.header} type="button" onClick={toggleList}>
@@ -45,6 +51,13 @@ const DropDown = ({ items, resetThenSet, title, friendDD, onCloseList }) => {
       </button>
       {listOpen && (
       <div className={classes.list}>
+        {friendDD && <button
+        className={classes["list-item"]}
+        type="button"
+        onClick={() => handleToggleAllItems(items)}
+        >
+          <em>Invite All Friends</em>
+        </button>}
         {items.map((item) => (
           <button
             className={classes["list-item"]}

@@ -24,8 +24,7 @@ const Chat = ({ firebase, user, title, userName, betId }) => {
       .onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           if (change.type === "added") {
-            // TODO: page refresh duplicates all messages
-            setMessages((prevValue) => [...prevValue, change.doc.data()]);
+            setMessages((prevValue) => [...prevValue, {id: change.doc.id, ...change.doc.data()}]);
             scrollToBottom();
           }
         });

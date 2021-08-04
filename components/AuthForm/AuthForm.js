@@ -2,7 +2,7 @@ import classes from "../BetForms/Form.module.css";
 import useForm from "../../hooks/useForm";
 import PrettyButton from "../UI/Buttons/PrettyButton";
 import { firebaseClient } from "../../firebaseClient";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -219,6 +219,7 @@ const AuthForm = () => {
                   value={emailValue}
                   required
                   type="email"
+                  autoComplete="email"
                 />
               </div>
               <div className={passwordInputClasses}>
@@ -228,6 +229,7 @@ const AuthForm = () => {
                   onChange={passwordChangedHandler}
                   value={passwordValue}
                   type="password"
+                  autoComplete="current-password"
                 />
               </div>
             </>
@@ -243,6 +245,7 @@ const AuthForm = () => {
                     value={emailValue}
                     required
                     type="email"
+                    autoComplete="email"
                   />
                   {emailHasError && (
                     <p className={classes["invalid-notif"]}>
@@ -257,6 +260,7 @@ const AuthForm = () => {
                     onChange={passwordChangedHandler}
                     value={passwordValue}
                     type="password"
+                    autoComplete="current-password"
                   />
                   {passwordHasError && (
                     <p className={classes["invalid-notif"]}>

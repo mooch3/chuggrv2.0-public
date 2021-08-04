@@ -8,9 +8,10 @@ import { verifyIdToken } from "../../../firebaseAdmin";
 import db from "../../../utils/db";
 import { firebaseClient } from "../../../firebaseClient";
 import nookies from "nookies";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/firestore";
 import Head from "next/head";
+import { Videos } from "../../../components/Videos/Videos";
 
 const betSlug = ({ bet, session, userName }) => {
   firebaseClient();
@@ -24,13 +25,10 @@ const betSlug = ({ bet, session, userName }) => {
 
     return (
       <>
-      <Head>
-        <title>{bet?.title}</title>
-        <meta
-          name="description"
-          content="A bet made on CHUGGR."
-        />
-      </Head>
+        <Head>
+          <title>{bet?.title}</title>
+          <meta name="description" content="A bet made on CHUGGR." />
+        </Head>
         {isDeleted && <h1 className="centered">This bet has been deleted.</h1>}
         {!isDeleted && (
           <Row>
@@ -60,7 +58,13 @@ const betSlug = ({ bet, session, userName }) => {
                 userName={userName}
               />
             )}
-            <RadioSelect bet={bet} uid={uid} betID={bet?.betID} />
+            <RadioSelect
+              bet={bet}
+              uid={uid}
+              betID={bet?.betID}
+              userName={userName}
+            />
+            <Videos betID={bet?.betID} />
           </Row>
         )}
       </>

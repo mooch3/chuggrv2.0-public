@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import classes from "./MainNavigation.module.css";
 import Logo from "./Logo";
 import MenuToggler from "./MenuToggler/MenuToggler";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import { destroyCookie } from "nookies";
 import NavItems from "./NavItems/NavItems";
 

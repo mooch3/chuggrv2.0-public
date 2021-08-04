@@ -3,7 +3,7 @@ import { firebaseClient } from "../../firebaseClient";
 import nookies from "nookies";
 import { verifyIdToken } from "../../firebaseAdmin";
 import db from "../../utils/db";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/firestore";
 import Head from "next/head";
 
@@ -31,7 +31,6 @@ const findBetsDashboard = ({ session, userName }) => {
 export default findBetsDashboard;
 
 export const getServerSideProps = async (context) => {
-  let bets = [];
   try {
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.__session);

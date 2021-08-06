@@ -1,5 +1,10 @@
-# CHUGGR v2.11 (deployed)
+# CHUGGR v2.20 (deployed)
 CHUGGR is a social media app that allows friends to connect over sports and beverages from wherever they are in the world. It is light-hearted application that was created during the COVID Pandemic. Originally, it was created as a tool to augment our fantasy leagues and give our friends a fun user experience that includes realtime chats, user authentication, friends, follows, and betting. Web v2.11 is live and available to join here: https://chuggr.io/
+
+## UPDATE: ##
+ * Fixed UI Bugs (such as Font Awesome Icons not being rendered correctly & Overlay not covering full screen)
+ * Added Video Uploads (mp4 only)
+ * Added new UI widgets to pages that feature grids (show only 3 items at a time)
 
 ## DEMO: ##
 Login, view bets, send messages, find bets, view friends, logout:

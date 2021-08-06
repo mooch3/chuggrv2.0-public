@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import classes from "./Videos.module.css";
 import Video from "./Video";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/storage";
 
 export const Videos = ({ betID }) => {

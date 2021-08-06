@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import LoadingSpinner from "../components/UI/LoadingSpinner/LoadingSpinner";
 import Overlay from "../components/UI/Overlay/Overlay";
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false; /* eslint-disable import/first */
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);

@@ -4,9 +4,11 @@ import AutoComplete from "./FriendSearch/AutoComplete";
 import TileGrid from "./TileGrid";
 import Tile from "./Tile";
 import Card from "../UI/Card";
+import ViewMore from "../UI/ViewMore/ViewMore";
 
 const Friends = ({ friendSearch, firebase, uid }) => {
   const [friendsList, setFriendsList] = useState([]);
+  const [index, setIndex] = useState(3);
 
   useEffect(() => {
     const unsubscribe = firebase
@@ -25,6 +27,14 @@ const Friends = ({ friendSearch, firebase, uid }) => {
     return () => unsubscribe();
   }, [firebase]);
 
+  const handleViewMore = () => {
+    if (index + 3 >= friendsList.length) {
+      setIndex(friendsList.length);
+      return;
+    }
+    setIndex((prevValue) => prevValue + 3);
+  };
+
   return (
     <div className={classes.friends}>
       <Card>
@@ -33,7 +43,7 @@ const Friends = ({ friendSearch, firebase, uid }) => {
       </Card>
       <h1 className={classes.header}>My Friends</h1>
       <TileGrid>
-        {friendsList.map((friend) => (
+        {friendsList.slice(0, index).map((friend) => (
           <Tile
             friends={true}
             firstName={friend?.firstName}
@@ -44,6 +54,9 @@ const Friends = ({ friendSearch, firebase, uid }) => {
           />
         ))}
       </TileGrid>
+      {index < friendsList.length && (
+        <ViewMore onScroll={handleViewMore} tooltip="View More Friends" />
+      )}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import admin from "firebase-admin";
 import serviceAccount from "./secrets.json";
+import firebase from "firebase/app";
+import { destroyCookie } from "nookies";
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -8,12 +10,18 @@ if (!admin.apps.length) {
   });
 }
 
+const logout = async () => {
+  await firebase.auth().signOut();
+  await destroyCookie(null, "__session");
+};
+
 export const verifyIdToken = (token) => {
   return admin
     .auth()
     .verifyIdToken(token)
     .catch((err) => {
-        // TODO: error handling
+      // TODO: error handling
+      logout();
       throw err;
     });
 };

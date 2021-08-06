@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Row from "../../components/Layout/Row/Row";
 import Card from "../../components/UI/Card";
 import ProfileDisplay from "../../components/ProfileDisplay/ProfileDisplay";
@@ -9,13 +10,23 @@ import { firebaseClient } from "../../firebaseClient";
 import { verifyIdToken } from "../../firebaseAdmin";
 import Error from "next/error";
 import Head from "next/head";
+import ViewMore from "../../components/UI/ViewMore/ViewMore";
 
 const Uid = ({ profile, session, bets, errorCode, user }) => {
   firebaseClient();
+  const [index, setIndex] = useState(3);
+
+  const handleViewMore = () => {
+    if (index + 3 > bets.length) {
+      setIndex(bets.length);
+      return;
+    }
+    setIndex(prevValue => prevValue + 3);
+  }
   if (errorCode) {
     return <Error statusCode={errorCode} />;
   }
-
+  
   if (session) {
     return (
       <>
@@ -51,7 +62,7 @@ const Uid = ({ profile, session, bets, errorCode, user }) => {
             Past Bets
           </h1>
           <TileGrid>
-            {bets.map((bet) => (
+            {bets.slice(0, index).map((bet) => (
               <Tile key={bet.betID} bet={bet} user={user} />
             ))}
           </TileGrid>
@@ -60,6 +71,7 @@ const Uid = ({ profile, session, bets, errorCode, user }) => {
               <em>No bets to display.</em>
             </h3>
           )}
+          {bets.length > index && <ViewMore onScroll={handleViewMore} tooltip="view more bets" />}
         </Row>
       </>
     );

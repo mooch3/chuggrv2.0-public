@@ -31,7 +31,7 @@ The [iOS Repo](https://github.com/bolderkat/CHUGGR) is now available on github
 In upcoming releases, I will be updating the following:
  * Allow users to update their profile information
  * Allow users to upload images
- * Upload videos that show bet fulfillment
+ * U̶p̶l̶o̶a̶d̶ v̶i̶d̶e̶o̶s̶ t̶h̶a̶t̶ s̶h̶o̶w̶ b̶e̶t̶ f̶u̶l̶f̶i̶l̶l̶m̶e̶n̶t̶
  * UI that displays which friends you have selected to invite to a bet
  * I̶n̶d̶e̶x̶ t̶h̶e̶ s̶i̶t̶e̶ a̶n̶d̶ a̶d̶d̶ s̶i̶t̶e̶m̶a̶p̶
  * A̶d̶d̶ a̶n̶ i̶n̶v̶i̶t̶e̶ a̶l̶l̶ f̶r̶i̶e̶n̶d̶s̶ o̶p̶t̶i̶o̶n̶

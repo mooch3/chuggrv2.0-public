@@ -7,6 +7,7 @@ import { incrementBeersShotsGiven } from "../../utils/incrementBeersShotsGiven";
 import { incrementBeersShotsReceived } from "../../utils/incrementBeersShotsReceived";
 import { setWinner } from "../../utils/setWinner";
 import { fulfillBet } from "../../utils/fulfillBet";
+import { saveVideoData } from "../../utils/saveVideoData";
 import { sliceString } from "../../helpers/sliceString";
 import firebase from "firebase/app";
 import "firebase/storage";
@@ -65,7 +66,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
   const handleUpload = (event) => {
     console.log(event.target.files[0]);
 
-    if (event.target.files[0]?.type !== "video/mp4") {
+    if (!event.target.files[0]?.type.includes("video")) {
       setError("The video must be in mp4 format for browser compatibility.");
       return;
     }
@@ -75,6 +76,10 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
       return;
     }
 
+    if (event.target.files[0].type === "video/quicktime") {
+      setError("Files in .mov format may not work in all browsers.")
+    }
+
     const file = event.target.files[0];
     const storageRef = firebase.storage().ref(`${betID}/${file.name}`);
     const uploadTask = storageRef.put(file);
@@ -82,6 +87,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+        // track progress of upload
         setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
       },
       (err) => {
@@ -93,22 +99,9 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
         console.log("file uploaded");
         // set reference in firestore to this bets videos
         const downloadURL = await storageRef.getDownloadURL();
+        saveVideoData(betID, userName, uid, downloadURL);
 
-        firebase
-          .firestore()
-          .collection("videos")
-          .doc(betID)
-          .set(
-            {
-              videos: firebase.firestore.FieldValue.arrayUnion({
-                userName: userName,
-                uid: uid,
-                timestamp: Date.now() / 1000,
-                url: downloadURL,
-              }),
-            },
-            { merge: true }
-          );
+
       }
     );
   };

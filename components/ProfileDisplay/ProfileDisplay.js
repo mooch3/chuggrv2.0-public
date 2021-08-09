@@ -1,4 +1,7 @@
 import classes from "./ProfileDisplay.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const ProfileDisplay = ({ profile }) => {
   return (
@@ -33,7 +36,6 @@ const ProfileDisplay = ({ profile }) => {
       <div>
         <h4>{profile.bio}</h4>
       </div>
-      <div></div>
       <div>
         <h4>Outstanding:</h4>
         <p>
@@ -49,6 +51,12 @@ const ProfileDisplay = ({ profile }) => {
       </div>
       <div>
         <p>{profile.betsLost} Bets Losts</p>{" "}
+      </div>
+      <div>
+        <Link href="/profile/update" >
+          <p style={{color: 'blue', cursor: 'pointer'}}>Edit Profile <FontAwesomeIcon icon={faEdit} /></p>
+        </Link>
+        
       </div>
     </div>
   );

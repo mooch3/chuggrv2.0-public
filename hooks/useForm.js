@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
-const useForm = (checkValidity) => {
+const useForm = (checkValidity, prefill) => {
+    let prefillText = prefill || ''
     const [isTouched, setIsTouched] = useState(false);
-    const [enteredValue, setEnteredValue] = useState('');
+    const [enteredValue, setEnteredValue] = useState(prefillText);
 
     const valueIsValid = checkValidity(enteredValue);
 

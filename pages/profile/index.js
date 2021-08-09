@@ -45,7 +45,9 @@ const Profile = ({ user, pastBets, session }) => {
           </h1>
           <Card>
             <ProfileDisplay profile={user} />
+            
           </Card>
+
           <h1
             style={{
               textTransform: "uppercase",

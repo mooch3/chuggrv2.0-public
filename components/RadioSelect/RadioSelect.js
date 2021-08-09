@@ -64,10 +64,8 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
   };
 
   const handleUpload = (event) => {
-    console.log(event.target.files[0]);
-
     if (!event.target.files[0]?.type.includes("video")) {
-      setError("The video must be in mp4 format for browser compatibility.");
+      setError("The file must be a video.");
       return;
     }
 
@@ -77,7 +75,7 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
     }
 
     if (event.target.files[0].type === "video/quicktime") {
-      setError("Files in .mov format may not work in all browsers.")
+      setError("Files in .mov format may not work in all browsers.");
     }
 
     const file = event.target.files[0];
@@ -100,8 +98,6 @@ const RadioSelect = ({ bet, uid, userName, betID, onAcceptBet }) => {
         // set reference in firestore to this bets videos
         const downloadURL = await storageRef.getDownloadURL();
         saveVideoData(betID, userName, uid, downloadURL);
-
-
       }
     );
   };

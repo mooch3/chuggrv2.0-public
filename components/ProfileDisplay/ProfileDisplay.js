@@ -7,7 +7,7 @@ const ProfileDisplay = ({ profile }) => {
   return (
     <div className={classes.grid}>
       <div>
-        <img src="/CHUGGRLogo.png" />
+        <img src={profile.profilePicURL ? profile.profilePicURL : "/CHUGGRLogo.png"} />
       </div>
       <div>
         <h3>{profile.userName}</h3>

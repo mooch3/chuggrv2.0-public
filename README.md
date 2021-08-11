@@ -1,10 +1,12 @@
 # CHUGGR v2.20 (deployed)
-CHUGGR is a social media app that allows friends to connect over sports and beverages from wherever they are in the world. It is light-hearted application that was created during the COVID Pandemic. Originally, it was created as a tool to augment our fantasy leagues and give our friends a fun user experience that includes realtime chats, user authentication, friends, follows, and betting. Web v2.11 is live and available to join here: https://chuggr.io/
+CHUGGR is a social media app that allows friends to connect over sports and beverages from wherever they are in the world. It is light-hearted application that was created during the COVID Pandemic. Originally, it was developed as a tool to augment our fantasy leagues and give our friends a fun user experience that includes realtime chats, user authentication, friends, follows, and betting. Web v2.20 is live and available to join here: https://chuggr.io/
 
 ## UPDATE: ##
  * Fixed UI Bugs (such as Font Awesome Icons not being rendered correctly & Overlay not covering full screen)
- * Added Video Uploads (mp4 only)
+ * Added Video Uploads
  * Added new UI widgets to pages that feature grids (show only 3 items at a time)
+ * Users can now upload pictures for their profile
+ * Users can edit profile information
 
 ## DEMO: ##
 Login, view bets, send messages, find bets, view friends, logout:
@@ -35,12 +37,12 @@ The [iOS Repo](https://github.com/bolderkat/CHUGGR) is now available on github
 
 ### Next Steps
 In upcoming releases, I will be updating the following:
- * Allow users to update their profile information
- * Allow users to upload profile images
+ * A̶l̶l̶o̶w̶ u̶s̶e̶r̶s̶ t̶o̶ u̶p̶d̶a̶t̶e̶ t̶h̶e̶i̶r̶ p̶r̶o̶f̶i̶l̶e̶ i̶n̶f̶o̶r̶m̶a̶t̶i̶o̶n̶
+ * A̶l̶l̶o̶w̶ u̶s̶e̶r̶s̶ t̶o̶ u̶p̶l̶o̶a̶d̶ p̶r̶o̶f̶i̶l̶e̶ i̶m̶a̶g̶e̶s̶
  * U̶p̶l̶o̶a̶d̶ v̶i̶d̶e̶o̶s̶ t̶h̶a̶t̶ s̶h̶o̶w̶ b̶e̶t̶ f̶u̶l̶f̶i̶l̶l̶m̶e̶n̶t̶
- * UI that displays which friends you have selected to invite to a bet
  * I̶n̶d̶e̶x̶ t̶h̶e̶ s̶i̶t̶e̶ a̶n̶d̶ a̶d̶d̶ s̶i̶t̶e̶m̶a̶p̶
  * A̶d̶d̶ a̶n̶ i̶n̶v̶i̶t̶e̶ a̶l̶l̶ f̶r̶i̶e̶n̶d̶s̶ o̶p̶t̶i̶o̶n̶
+ * UI that displays which friends you have selected to invite to a bet
 
 
 Keep CHUGGIN'.

@@ -89,6 +89,7 @@ const NavItems = ({ onLogout, active }) => {
             </li>
             <li>
               <button
+                style={{padding: '0'}}
                 onClick={handleLogout}
               >
                 Sign out

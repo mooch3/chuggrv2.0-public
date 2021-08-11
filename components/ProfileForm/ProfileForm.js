@@ -8,11 +8,13 @@ import "firebase/firestore";
 import { updateProfile } from "../../utils/updateProfile";
 import { updateProfilePicture } from "../../utils/updateProfilePicture";
 import PrettyButton from "../UI/Buttons/PrettyButton";
+import { useRouter } from "next/router";
 
 const isNotEmpty = (value) => value.trim().length > 0;
 
 const ProfileForm = ({ firstName, lastName, userName, bio, }) => {
   const [progress, setProgress] = useState(0);
+  const router = useRouter();
 
   const { user } = useAuth();
 
@@ -94,6 +96,7 @@ const ProfileForm = ({ firstName, lastName, userName, bio, }) => {
     lNameReset();
     usernameReset();
     bioReset();
+    router.push('/profile');
   };
 
   const handleUpload = (event) => {

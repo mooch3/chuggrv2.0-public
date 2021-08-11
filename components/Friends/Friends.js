@@ -49,6 +49,7 @@ const Friends = ({ friendSearch, firebase, uid }) => {
             firstName={friend?.firstName}
             lastName={friend?.lastName}
             userName={friend?.userName}
+            profilePicURL={friend?.profilePicURL}
             key={friend?.uid}
             id={friend?.uid}
           />

@@ -150,7 +150,7 @@ const AuthForm = () => {
         },
         numBets: 0,
         numFriends: 0,
-        profilePic: "",
+        profilePicURL: "",
         recentFriends: [],
       };
 

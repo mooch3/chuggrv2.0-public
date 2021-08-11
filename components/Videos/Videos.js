@@ -16,7 +16,7 @@ export const Videos = ({ betID }) => {
       .onSnapshot((doc) => {
         if (doc.exists) {
           doc.data().videos.forEach((video) => {
-            tempVideos.push({ ...video, id: `${video.timestamp}-${video.uid}` });
+            tempVideos.push({ ...video });
           });
         }
         setVideos(tempVideos);
@@ -27,9 +27,9 @@ export const Videos = ({ betID }) => {
 
   return (
     <>
-      {videos.map((video) => (
-        <div className={classes["video-container"]}>
-          <Video url={video.url} key={video.id} userName={video.userName} />
+      {videos.map((video, index) => (
+        <div className={classes["video-container"]} key={index + video.url}>
+          <Video url={video.url} userName={video.userName} />
         </div>
       ))}
     </>

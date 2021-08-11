@@ -113,7 +113,7 @@ const DashboardDisplay = ({
             </div>
             <div>
               <h4>Status:</h4>
-              <p>{findStatus(bet, uid)}</p>
+              {findStatus(bet, uid)}
             </div>
             <div>
               {main && (

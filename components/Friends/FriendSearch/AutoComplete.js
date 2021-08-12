@@ -24,7 +24,6 @@ const AutoComplete = ({ options, friendsList }) => {
         option.uid !== user.uid
       );
     });
-
     setFilteredOptions(filteredOptions);
     setActiveOption(0);
     setShowOptions(true);
@@ -33,14 +32,15 @@ const AutoComplete = ({ options, friendsList }) => {
   };
 
   const handleClick = (event) => {
-    setActiveOption(0);
+    // find index of mouse over
+    setActiveOption(event.target.value);
+    setSelectedFriend(filteredOptions[event.target.value]);
     setShowOptions(false);
     setUserInput(
-      `${filteredOptions[activeOption].firstName} ${filteredOptions[activeOption].lastName} (${filteredOptions[activeOption].userName})`
+      `${filteredOptions[event.target.value].firstName} ${
+        filteredOptions[event.target.value].lastName
+      } (${filteredOptions[event.target.value].userName})`
     );
-    setSelectedFriend(filteredOptions[activeOption]);
-
-    
   };
 
   const handleTouch = () => {
@@ -64,13 +64,15 @@ const AutoComplete = ({ options, friendsList }) => {
       if (activeOption + 1 === filteredOptions.length) {
         return;
       }
-
       setActiveOption((prevValue) => prevValue + 1);
     }
   };
 
-  const handleAddFriend = () => {
+  const handleHover = (event) => {
+    setActiveOption(event.target.value);
+  }
 
+  const handleAddFriend = () => {
     if (!selectedFriend) {
       return;
     }
@@ -79,22 +81,21 @@ const AutoComplete = ({ options, friendsList }) => {
       userName: selectedFriend.userName,
       firstName: selectedFriend.firstName,
       lastName: selectedFriend.lastName,
-      uid: selectedFriend.uid
-    }
+      uid: selectedFriend.uid,
+    };
     let uidList = [];
 
-    friendsList.forEach(friend => {
-      uidList.push(friend.uid)
+    friendsList.forEach((friend) => {
+      uidList.push(friend.uid);
     });
 
     if (uidList.includes(friendObj.uid)) {
-      setAddError('You are already friends with this person.');
+      setAddError("You are already friends with this person.");
       return;
     }
 
     addFriend(friendObj, user.uid);
-    setUserInput("")
-  
+    setUserInput("");
   };
 
   let optionsList;
@@ -109,7 +110,13 @@ const AutoComplete = ({ options, friendsList }) => {
               className = classes["option-active"];
             }
             return (
-              <li className={className} key={option.uid} onClick={handleClick}>
+              <li
+                className={className}
+                key={option.uid}
+                onClick={handleClick}
+                value={index}
+                onMouseOver={handleHover}
+              >
                 {`${option.firstName} ${option.lastName} (${option.userName})`}
               </li>
             );

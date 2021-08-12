@@ -13,6 +13,7 @@
 }
 
 .grid img {
-    height: 100px;
+    height: 150px;
     width: auto;
+    border-radius: 15px;
 }

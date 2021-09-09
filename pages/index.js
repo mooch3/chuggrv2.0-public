@@ -22,6 +22,16 @@ export default function Home() {
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
+        <meta property="og:title" content="CHUGGR">
+          <meta property="og:site_name" content="chuggr.io" />
+          <meta property="og:url" content="https://chuggr.io/" />
+          <meta
+            property="og:description"
+            content="A social media and sports betting application."
+          />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="/CHUGGRLogoSM.png" />
+        </meta>
       </Head>
       <CallToAction />
     </>

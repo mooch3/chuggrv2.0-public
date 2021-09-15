@@ -43,15 +43,15 @@ const CallToAction = () => {
         <Break />
         <div className={classes.items}>
           <div className={classes["cta-item"]}>
-            <FontAwesomeIcon icon={faDice} size="3x" />
+            <FontAwesomeIcon icon={faDice} size="3x" title="dice" />
             <p>Bet On Anything</p>
           </div>
           <div className={classes["cta-item"]}>
-            <FontAwesomeIcon icon={faUserFriends} size="3x" />
+            <FontAwesomeIcon icon={faUserFriends} size="3x" title="userFriends" />
             <p>Connect with Friends</p>
           </div>
           <div className={classes["cta-item"]}>
-            <FontAwesomeIcon icon={faBeer} size="3x" />
+            <FontAwesomeIcon icon={faBeer} size="3x" title="beer" />
             <p>Drink Beer</p>
           </div>
         </div>

@@ -208,7 +208,7 @@ const AuthForm = () => {
       )}
       <section className={classes.auth}>
         <h1 className={`${classes.big} centered`}>{isLogin ? "LOGIN" : "CREATE ACCOUNT"}</h1>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form aria-label="form" className={classes.form} onSubmit={handleSubmit}>
           {isLogin && (
             <>
               <div className={emailInputClasses}>

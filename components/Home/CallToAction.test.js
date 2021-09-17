@@ -1,9 +1,18 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import userEvent from '@testing-library/user-event';
+import { renderHook, act } from "@testing-library/react-hooks";
+import userEvent from "@testing-library/user-event";
 import CallToAction from "./CallToAction";
+import mockRouter from "next-router-mock";
+import { useRouter } from "next/router";
+
+jest.mock("next/router", () => require("next-router-mock"));
 
 describe("Home", () => {
+  beforeEach(() => {
+    mockRouter.setCurrentUrl("/");
+  });
+
   it("renders 2 headers that say CHUGGR", () => {
     render(<CallToAction />);
 
@@ -63,11 +72,14 @@ describe("Home", () => {
     expect(secondaryDescription).toBeInTheDocument();
   });
 
-  it('renders the create account page when pretty button is clicked', () => {
-      render(<CallToAction />);
-      const btn = screen.getAllByRole('button');
+  it("renders the create account page when pretty button is clicked", () => {
+    render(<CallToAction />);
+    const { result } = renderHook(() => useRouter());
+    act(() => {
+      const btn = screen.getAllByRole("button");
       userEvent.click(btn[0]);
-      const text = screen.queryByText('CHUGGR');
-      expect(text).toBeNull();
-  })
+    });
+
+    expect(result.current).toMatchObject({ asPath: "/auth" });
+  });
 });
